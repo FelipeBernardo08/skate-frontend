@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+
+.creepster-regular {
+    font-family: "Creepster", system-ui;
+    font-style: normal;
+    font-size: 20px;
+}
+
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
