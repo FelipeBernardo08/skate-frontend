@@ -11,13 +11,23 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
+import { ProfileComponent } from './components/profile/profile.component';
+import { LoginComponent } from './components/login/login.component';
+import { CreateSkaterComponent } from './components/create-skater/create-skater.component';
+import { LocalComponent } from './components/local/local.component';
+import { IncludeComponent } from './components/include/include.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     HeaderBarComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent,
+    LoginComponent,
+    CreateSkaterComponent,
+    LocalComponent,
+    IncludeComponent
   ],
   imports: [
     BrowserModule,
