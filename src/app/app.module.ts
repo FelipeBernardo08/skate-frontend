@@ -18,6 +18,8 @@ import { LocalComponent } from './components/local/local.component';
 import { IncludeComponent } from './components/include/include.component';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatCardModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

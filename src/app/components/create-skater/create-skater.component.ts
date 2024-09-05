@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Regystry } from 'src/app/interfaces/regystry';
+import { LoginService } from 'src/app/services/login.service';
+import { SnackMessageService } from 'src/app/services/snack-message.service';
 
 @Component({
   selector: 'app-create-skater',
@@ -10,7 +12,9 @@ import { Regystry } from 'src/app/interfaces/regystry';
 export class CreateSkaterComponent implements OnInit {
 
   constructor(
-    private router: Router
+    private router: Router,
+    private loginService: LoginService,
+    private snackMessageService: SnackMessageService
   ) { }
 
   registry: Regystry = {
@@ -30,7 +34,12 @@ export class CreateSkaterComponent implements OnInit {
 
   sendRegistry(): void {
     if (this.registry.name != '' && this.registry.email != '' && this.registry.password != '') {
-      console.log(this.registry);
+      this.loginService.registry(this.registry).subscribe((resp: any) => {
+        this.snackMessageService.snackMessage('Registro criado com sucesso!');
+        this.router.navigate(['/login']);
+      }, error => {
+        this.snackMessageService.snackMessage('error');
+      })
     }
   }
 
