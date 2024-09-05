@@ -16,6 +16,8 @@ import { LoginComponent } from './components/login/login.component';
 import { CreateSkaterComponent } from './components/create-skater/create-skater.component';
 import { LocalComponent } from './components/local/local.component';
 import { IncludeComponent } from './components/include/include.component';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { IncludeComponent } from './components/include/include.component';
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatCardModule
+    MatCardModule,
+    FormsModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

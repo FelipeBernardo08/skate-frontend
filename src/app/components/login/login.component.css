@@ -1,0 +1,7 @@
+.registry {
+    cursor: pointer;
+}
+
+.registry:hover {
+    text-decoration: underline;
+}
