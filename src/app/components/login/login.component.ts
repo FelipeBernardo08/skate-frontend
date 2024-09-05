@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/interfaces/login';
+import { LoginService } from 'src/app/services/login.service';
+import { SnackMessageService } from 'src/app/services/snack-message.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,9 @@ import { Login } from 'src/app/interfaces/login';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private router: Router
+    private router: Router,
+    private loginService: LoginService,
+    private snackMessageService: SnackMessageService
   ) { }
 
   login: Login = {
@@ -28,11 +32,15 @@ export class LoginComponent implements OnInit {
 
   logIn(): void {
     if (this.login.email != '' && this.login.password != '') {
-      console.log(this.login)
+      this.loginService.login(this.login).subscribe((resp: any) => {
+        sessionStorage.setItem('token', resp)
+        this.snackMessageService.snackMessage('Sucesso!');
+        this.router.navigate(['/']);
+      })
     }
   }
 
   registry(): void {
-    ; this.router.navigate(['/create-profile']);
+    this.router.navigate(['/create-profile']);
   }
 }
