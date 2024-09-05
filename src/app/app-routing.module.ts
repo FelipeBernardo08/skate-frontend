@@ -5,6 +5,7 @@ import { IncludeComponent } from './components/include/include.component';
 import { LocalComponent } from './components/local/local.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CreateSkaterComponent } from './components/create-skater/create-skater.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'create-profile',
     component: CreateSkaterComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ];
 
