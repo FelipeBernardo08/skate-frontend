@@ -106,7 +106,20 @@ export class ProfileComponent implements OnInit {
   }
 
   sendChangePassword(): void {
-
+    if (this.password.pass1 != '' && this.password.pass2 != '') {
+      if (this.password.pass1 == this.password.pass2) {
+        let payload = {
+          password: this.password.pass1
+        }
+        this.loginService.changePassword(payload).subscribe((resp: any) => {
+          console.log(resp)
+        })
+      } else {
+        //senhas divergentes
+      }
+    } else {
+      //formulario vazio
+    }
   }
 
   sendUpdateUser(): void {
