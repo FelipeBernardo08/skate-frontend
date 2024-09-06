@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { SkaterService } from 'src/app/services/skater.service';
-import { StoreUserService } from 'src/app/services/store-user.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,8 +13,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private router: Router,
     private skaterService: SkaterService,
-    private loginService: LoginService,
-    private storeUser: StoreUserService
+    private loginService: LoginService
   ) { }
 
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -53,15 +51,22 @@ export class ProfileComponent implements OnInit {
     if (token == null || token == '') {
       this.router.navigate(['/login']);
     } else {
-      setTimeout(() => {
-        this.user.name = sessionStorage.getItem('name')
-        this.user.fone = sessionStorage.getItem('fone')
-        this.user.cpf = sessionStorage.getItem('cpf')
-        this.user.address_neighborhood = sessionStorage.getItem('address_neighborhood')
-        this.user.address_city = sessionStorage.getItem('address_city')
-        this.user.urlImage = sessionStorage.getItem('urlImage')
-      }, 100)
+      this.getUser();
     }
+  }
+
+  getUser(): void {
+    this.loginService.me().subscribe((resp: any) => {
+      this.user.name = resp[0].skater[0].name;
+      this.user.fone = resp[0].skater[0].fone;
+      this.user.cpf = resp[0].skater[0].cpf
+      this.user.address_city = resp[0].skater[0].address_city;
+      this.user.address_neighborhood = resp[0].skater[0].address_neighborhood;
+      this.user.urlImage = resp[0].skater[0].image_profile[0]?.filename;
+      if (this.user.urlImage != '') {
+        sessionStorage.setItem('urlImageProfile', this.user.urlImage);
+      }
+    })
   }
 
   getImageSessionStorage(): void {
@@ -107,7 +112,8 @@ export class ProfileComponent implements OnInit {
   sendUpdateUser(): void {
     if (this.user.name != '' && this.user.fone != '' && this.user.cpf != '' && this.user.address_city != '' && this.user.address_neighborhood) {
       this.skaterService.updateUser(this.user).subscribe((resp: any) => {
-
+        this.getUser();
+        this.editProfile();
       })
     }
   }
