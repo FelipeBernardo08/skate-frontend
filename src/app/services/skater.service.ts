@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class SkaterService {
 
   constructor(
     private http: HttpClient
@@ -25,16 +25,7 @@ export class LoginService {
     })
   }
 
-  public registry(credentials: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/create-skater`, credentials);
+  public updateUser(user: any): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/update-skater`, user, { headers: this.getHeaders() });
   }
-
-  public login(credentials: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, credentials);
-  }
-
-  public me(): Observable<any> {
-    return this.http.post(`${this.baseUrl}/me`, '', { headers: this.getHeaders() });
-  }
-
 }

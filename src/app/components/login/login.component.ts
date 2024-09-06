@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Login } from 'src/app/interfaces/login';
 import { LoginService } from 'src/app/services/login.service';
 import { SnackMessageService } from 'src/app/services/snack-message.service';
+import { StoreUserService } from 'src/app/services/store-user.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private loginService: LoginService,
-    private snackMessageService: SnackMessageService
+    private snackMessageService: SnackMessageService,
+    private storeUser: StoreUserService
   ) { }
 
   login: Login = {
@@ -33,9 +35,10 @@ export class LoginComponent implements OnInit {
   logIn(): void {
     if (this.login.email != '' && this.login.password != '') {
       this.loginService.login(this.login).subscribe((resp: any) => {
-        sessionStorage.setItem('token', resp)
+        sessionStorage.setItem('token', resp);
+        this.storeUser.storeUser();
+        this.router.navigate(['/profile']);
         this.snackMessageService.snackMessage('Sucesso!');
-        this.router.navigate(['/']);
       })
     }
   }
