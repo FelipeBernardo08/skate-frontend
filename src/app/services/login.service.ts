@@ -33,4 +33,16 @@ export class LoginService {
     return this.http.post(`${this.baseUrl}/login`, credentials);
   }
 
+  public logout(): Observable<any> {
+    return this.http.post(`${this.baseUrl}/logout`, '', { headers: this.getHeaders() });
+  }
+
+  public me(): Observable<any> {
+    return this.http.post(`${this.baseUrl}/me`, '', { headers: this.getHeaders() });
+  }
+
+  public changePassword(password: any): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/update-password`, password, { headers: this.getHeaders() });
+  }
+
 }

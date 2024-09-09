@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private loginService: LoginService,
-    private snackMessageService: SnackMessageService
+    private snackMessageService: SnackMessageService,
   ) { }
 
   login: Login = {
@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit {
   logIn(): void {
     if (this.login.email != '' && this.login.password != '') {
       this.loginService.login(this.login).subscribe((resp: any) => {
-        sessionStorage.setItem('token', resp)
+        sessionStorage.setItem('token', resp);
+        this.router.navigate(['/profile']);
         this.snackMessageService.snackMessage('Sucesso!');
-        this.router.navigate(['/']);
       })
     }
   }
