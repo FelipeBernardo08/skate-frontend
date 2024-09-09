@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
 
   conditionChangePassword: boolean = false;
 
-  urlStore: string = environment.BASE_URL_STORAGE;
+  private urlStore: string = environment.BASE_URL_STORAGE;
 
   hide1: boolean = true;
   hide2: boolean = true;
@@ -50,6 +50,8 @@ export class ProfileComponent implements OnInit {
     pass2: ''
   }
 
+  respUser: Array<any> = [];
+
   ngOnInit(): void {
     this.getUserSession();
   }
@@ -64,7 +66,11 @@ export class ProfileComponent implements OnInit {
   }
 
   getUser(): void {
+    this.respUser = [];
     this.loginService.me().subscribe((resp: any) => {
+      setTimeout(() => {
+        this.respUser = resp;
+      }, 3000);
       this.user.name = resp[0].skater[0].name;
       this.user.fone = resp[0].skater[0].fone;
       this.user.cpf = resp[0].skater[0].cpf
@@ -75,7 +81,9 @@ export class ProfileComponent implements OnInit {
         sessionStorage.setItem('urlImageProfile', this.user.urlImage);
         this.eventService.changeImage();
       }
-      this.getImageSessionStorage();
+      setTimeout(() => {
+        this.getImageSessionStorage();
+      }, 10);
     })
   }
 
@@ -150,13 +158,14 @@ export class ProfileComponent implements OnInit {
     if (this.user.name != '' && this.user.fone != '' && this.user.cpf != '' && this.user.address_city != '' && this.user.address_neighborhood) {
       this.skaterService.updateUser(this.user).subscribe((resp: any) => {
         this.getUser();
-        this.editProfile();
       })
     }
     if (this.imageReceived != undefined || this.imageReceived != null) {
       this.skaterService.createImageProfile(this.imageReceived).subscribe((resp: any) => {
+        this.getUser();
       })
     }
+    this.editProfile();
   }
 
   logout(): void {
@@ -164,6 +173,16 @@ export class ProfileComponent implements OnInit {
       sessionStorage.clear();
       this.eventService.changeImage();
       this.router.navigate(['/'])
+    })
+  }
+
+  deleteImageProfile(): void {
+    let id: any = this.respUser[0].skater[0].image_profile[0].id
+    this.skaterService.deleteImageProfile(id).subscribe((resp: any) => {
+      sessionStorage.removeItem('urlImageProfile');
+      this.eventService.changeImage();
+      this.getUser();
+      this.editProfile();
     })
   }
 }

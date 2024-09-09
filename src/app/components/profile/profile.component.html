@@ -1,4 +1,14 @@
-<mat-card class="mt-3 mat-elevation-z4">
+<div *ngIf="respUser.length == 0">
+    <div class="d-flex justify-content-center mt-3">
+        <img class="img-fluid" src="../../../assets/3ohze2IqF09aevkCVa.webp" alt="">
+    </div>
+    <div class="text-center charge">
+        Carregando...
+    </div>
+</div>
+
+
+<mat-card *ngIf="respUser.length != 0" class="mt-3 mat-elevation-z4">
     <div class="row">
         <div class="col-md-4 mt-3">
             <div class="text-center mt-3">
@@ -9,10 +19,18 @@
                     [ngStyle]="{'background-image': 'url(' + imageUrl + ')'}">
                 </div>
             </div>
-            <div *ngIf="!conditionChangePassword && !conditionEditProfile" class="d-flex justify-content-center mt-3">
-                <button (click)="triggerImage()" class="btn btn-primary btn-sm text-light">Alterar</button>
+
+            <div *ngIf="!conditionChangePassword && !conditionEditProfile && respUser[0].skater[0].image_profile.length == 0"
+                class="d-flex justify-content-center mt-3">
+                <button (click)="triggerImage()" class="btn btn-primary btn-sm text-light">Adicionar</button>
                 <input accept="image/*" #fileInput (change)="selectImage($event)" hidden type="file">
             </div>
+
+            <div *ngIf="!conditionChangePassword && !conditionEditProfile && respUser[0].skater[0].image_profile.length != 0"
+                class="d-flex justify-content-center mt-3">
+                <button (click)="deleteImageProfile()" class="btn btn-sm btn-danger">Apagar</button>
+            </div>
+
             <div class="d-flex justify-content-center mt-3 cursor-pointer">
                 <span (click)="logout()">
                     <i class="material-icons">logout</i>

@@ -31,4 +31,8 @@ export class SkaterService {
   public createImageProfile(image: FormData): Observable<any> {
     return this.http.post(`${this.baseUrl}/create-image-profile`, image, { headers: this.getHeaders() });
   }
+
+  public deleteImageProfile(id: any): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/delete-image-profile/${id}`, { headers: this.getHeaders() });
+  }
 }
