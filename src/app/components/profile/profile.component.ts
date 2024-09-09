@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { EventsService } from 'src/app/services/events.service';
 import { LoginService } from 'src/app/services/login.service';
 import { SkaterService } from 'src/app/services/skater.service';
+import { SnackMessageService } from 'src/app/services/snack-message.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -13,16 +16,22 @@ export class ProfileComponent implements OnInit {
   constructor(
     private router: Router,
     private skaterService: SkaterService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private snackMessageService: SnackMessageService,
+    private eventService: EventsService
   ) { }
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
-  imageUrl: string = '';
+  imageUrl: any;
+
+  imageReceived: FormData = new FormData();;
 
   conditionEditProfile: boolean = true;
 
   conditionChangePassword: boolean = false;
+
+  urlStore: string = environment.BASE_URL_STORAGE;
 
   hide1: boolean = true;
   hide2: boolean = true;
@@ -43,7 +52,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserSession();
-    this.getImageSessionStorage();
   }
 
   getUserSession(): void {
@@ -62,10 +70,12 @@ export class ProfileComponent implements OnInit {
       this.user.cpf = resp[0].skater[0].cpf
       this.user.address_city = resp[0].skater[0].address_city;
       this.user.address_neighborhood = resp[0].skater[0].address_neighborhood;
-      this.user.urlImage = resp[0].skater[0].image_profile[0]?.filename;
+      this.user.urlImage = `${this.urlStore}/${resp[0].skater[0].image_profile[0].file_name}`;
       if (this.user.urlImage != '') {
         sessionStorage.setItem('urlImageProfile', this.user.urlImage);
+        this.eventService.changeImage();
       }
+      this.getImageSessionStorage();
     })
   }
 
@@ -82,15 +92,25 @@ export class ProfileComponent implements OnInit {
     this.fileInput.nativeElement.click();
   }
 
-  selectImage(e: Event): void {
-    let input: any = e.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file: any = input.file[0];
+  selectImage(event: any): void {
+    const file = event.target.files[0];
+
+    if (file) {
+      const objectUrl = URL.createObjectURL(file);
+      this.imageUrl = objectUrl;
+      if (!this.imageReceived) {
+        this.imageReceived = new FormData();
+      }
+      this.imageReceived.append('file_name', file);
+    } else {
+      console.error('Nenhum arquivo selecionado.');
     }
   }
 
+
   editProfile(): void {
     this.conditionEditProfile = !this.conditionEditProfile;
+    this.getImageSessionStorage();
   }
 
   changePassword(): void {
@@ -112,13 +132,17 @@ export class ProfileComponent implements OnInit {
           password: this.password.pass1
         }
         this.loginService.changePassword(payload).subscribe((resp: any) => {
-          console.log(resp)
+          this.snackMessageService.snackMessage('Sucesso!');
+          this.changePassword();
+        }, (error) => {
+          this.snackMessageService.snackMessage('Erro no servidor, tente novamente mais tarde!');
+          this.changePassword();
         })
       } else {
-        //senhas divergentes
+        this.snackMessageService.snackMessage('As senhas precisam ser identicas!');
       }
     } else {
-      //formulario vazio
+      this.snackMessageService.snackMessage('Os campos precisam ser preenchidos!');
     }
   }
 
@@ -129,5 +153,17 @@ export class ProfileComponent implements OnInit {
         this.editProfile();
       })
     }
+    if (this.imageReceived != undefined || this.imageReceived != null) {
+      this.skaterService.createImageProfile(this.imageReceived).subscribe((resp: any) => {
+      })
+    }
+  }
+
+  logout(): void {
+    this.loginService.logout().subscribe(() => {
+      sessionStorage.clear();
+      this.eventService.changeImage();
+      this.router.navigate(['/'])
+    })
   }
 }

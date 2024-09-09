@@ -9,9 +9,15 @@
                     [ngStyle]="{'background-image': 'url(' + imageUrl + ')'}">
                 </div>
             </div>
-            <div *ngIf="!conditionChangePassword" class="d-flex justify-content-center mt-3">
+            <div *ngIf="!conditionChangePassword && !conditionEditProfile" class="d-flex justify-content-center mt-3">
                 <button (click)="triggerImage()" class="btn btn-primary btn-sm text-light">Alterar</button>
                 <input accept="image/*" #fileInput (change)="selectImage($event)" hidden type="file">
+            </div>
+            <div class="d-flex justify-content-center mt-3 cursor-pointer">
+                <span (click)="logout()">
+                    <i class="material-icons">logout</i>
+                    <p>sair</p>
+                </span>
             </div>
         </div>
         <div class="col-md-8">

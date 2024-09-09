@@ -13,7 +13,6 @@ export class NavBarComponent implements OnInit {
   }
 
   public openAnuncios(): void {
-    console.log('entrou')
   }
 
 }

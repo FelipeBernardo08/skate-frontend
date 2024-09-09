@@ -20,12 +20,15 @@ export class SkaterService {
 
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
-      'Content-Type': 'application/json',
       'Authorization': `Bearer ${this.retornarToken()}`
     })
   }
 
   public updateUser(user: any): Observable<any> {
     return this.http.patch(`${this.baseUrl}/update-skater`, user, { headers: this.getHeaders() });
+  }
+
+  public createImageProfile(image: FormData): Observable<any> {
+    return this.http.post(`${this.baseUrl}/create-image-profile`, image, { headers: this.getHeaders() });
   }
 }

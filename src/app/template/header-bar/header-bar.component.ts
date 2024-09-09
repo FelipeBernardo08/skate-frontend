@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventsService } from 'src/app/services/events.service';
 
 @Component({
   selector: 'app-header-bar',
@@ -7,10 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private eventService: EventsService,
+  ) { }
+
   imageUrl: string = ''
 
   ngOnInit(): void {
+    this.eventService.eventEmitter.subscribe(() => {
+      this.getImageSessionStorage();
+    })
     this.getImageSessionStorage();
   }
 
