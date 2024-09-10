@@ -32,6 +32,10 @@ export class IncludeComponent implements OnInit {
   }
 
   openCreateLocal(): void {
+    this.router.navigate(['/create-local']);
+  }
 
+  openCreateProduct(): void {
+    this.router.navigate(['/create-product']);
   }
 }

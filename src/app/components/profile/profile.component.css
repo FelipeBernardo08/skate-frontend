@@ -1,4 +1,12 @@
-.example-header-image {
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+.creepster-regular {
+    font-family: "Creepster", system-ui;
+    font-style: normal;
+    font-size: 20px;
+}
+
+.header-image {
     background-size: cover;
     height: 8rem;
     width: 8rem;
