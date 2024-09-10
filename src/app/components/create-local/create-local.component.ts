@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { Local } from 'src/app/interfaces/local';
 
 interface imageLocal {
   caminho: SafeUrl,
@@ -16,6 +18,7 @@ export class CreateLocalComponent implements OnInit {
 
   constructor(
     private sanitizer: DomSanitizer,
+    private router: Router
   ) { }
 
   loader: boolean = true;
@@ -23,6 +26,17 @@ export class CreateLocalComponent implements OnInit {
   images: Array<any> = [];
 
   payloadSendImages: Array<FormData> = [];
+
+  place: Local = {
+    title: '',
+    description: '',
+    access: '',
+    address_street: '',
+    address_number: '',
+    address_neighborhood: '',
+    address_city: '',
+    address_estate: ''
+  }
 
 
   ngOnInit(): void {
@@ -57,4 +71,11 @@ export class CreateLocalComponent implements OnInit {
     });
   }
 
+  createLocal(): void {
+
+  }
+
+  cancelCreateLocal(): void {
+    this.router.navigate(['/include'])
+  }
 }

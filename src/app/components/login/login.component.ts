@@ -24,6 +24,10 @@ export class LoginComponent implements OnInit {
   hide: boolean = true;
 
   ngOnInit(): void {
+    let token = sessionStorage.getItem('token')
+    if (token) {
+      this.router.navigate(['/profile']);
+    }
   }
 
   showPassword(): void {

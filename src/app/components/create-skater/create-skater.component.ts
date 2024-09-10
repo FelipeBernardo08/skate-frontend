@@ -26,6 +26,10 @@ export class CreateSkaterComponent implements OnInit {
 
 
   ngOnInit(): void {
+    let token = sessionStorage.getItem('token')
+    if (token) {
+      this.router.navigate(['/profile']);
+    }
   }
 
   showPassword(): void {
