@@ -1,5 +1,4 @@
 <div *ngIf="loader">
-
     <div class="d-flex justify-content-center mt-3">
         <img class="img-fluid" src="../../../assets/3ohze2IqF09aevkCVa.webp" alt="">
     </div>
@@ -11,7 +10,7 @@
 <div *ngIf="!loader" class="row justify-content-center mt-3">
     <div class="col-lg-6 mt-3">
         <div class="d-flex justify-content-center">
-            <mat-card class="mat-elevation-z4 w-75">
+            <mat-card (click)="openCreateLocal()" class="mat-elevation-z4 w-75">
                 <div class="text-center">
                     <div class="d-flex justify-content-center">
                         <div class="w-50">

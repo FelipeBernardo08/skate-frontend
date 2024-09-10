@@ -11,6 +11,9 @@ body {
 }
 
 .custom-snackbar {
+    position: relative;
+    bottom: 12svh;
     background-color: white;
     color: black;
+    z-index: 1000;
 }

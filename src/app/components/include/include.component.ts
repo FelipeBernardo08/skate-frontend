@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SnackMessageService } from 'src/app/services/snack-message.service';
 
 @Component({
   selector: 'app-include',
@@ -9,7 +10,8 @@ import { Router } from '@angular/router';
 export class IncludeComponent implements OnInit {
 
   constructor(
-    private router: Router
+    private router: Router,
+    private snackMessageService: SnackMessageService
   ) { }
 
   loader: boolean = true;
@@ -24,7 +26,12 @@ export class IncludeComponent implements OnInit {
   verifyUser(): void {
     let token = sessionStorage.getItem('token')
     if (token == undefined || token == 'udnefined' || token == null || token == '') {
+      this.snackMessageService.snackMessage('Efetue o login primeiro!');
       this.router.navigate(['/login'])
     }
+  }
+
+  openCreateLocal(): void {
+
   }
 }

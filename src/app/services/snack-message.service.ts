@@ -12,7 +12,7 @@ export class SnackMessageService {
   public snackMessage(message: string): void {
     this.snackBar.open(message, 'X', {
       duration: 5000,
-      verticalPosition: 'top',
+      verticalPosition: 'bottom',
       horizontalPosition: 'center',
       panelClass: ['custom-snackbar']
     });

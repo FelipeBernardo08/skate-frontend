@@ -68,10 +68,10 @@ export class ProfileComponent implements OnInit {
   }
 
   getUser(): void {
-    this.respUser = [];
+    this.loader = true;
     this.loginService.me().subscribe((resp: any) => {
       setTimeout(() => {
-        this.loader = !this.loader
+        this.loader = false;
         this.respUser = resp;
         this.user.name = resp[0].skater[0].name;
         this.user.fone = resp[0].skater[0].fone;
@@ -86,7 +86,7 @@ export class ProfileComponent implements OnInit {
         this.getImageSessionStorage();
       }, 3000);
     }, (error) => {
-      this.loader = !this.loader
+      this.loader = false;
     })
   }
 
@@ -105,7 +105,6 @@ export class ProfileComponent implements OnInit {
 
   selectImage(event: any): void {
     const file = event.target.files[0];
-
     if (file) {
       const objectUrl = URL.createObjectURL(file);
       this.imageUrl = objectUrl;
@@ -175,11 +174,12 @@ export class ProfileComponent implements OnInit {
     this.loginService.logout().subscribe(() => {
       sessionStorage.clear();
       this.eventService.changeImage();
-      this.router.navigate(['/'])
+      this.router.navigate(['/login'])
     })
   }
 
   deleteImageProfile(): void {
+    this.loader = true;
     let id: any = this.respUser[0].skater[0].image_profile[0].id
     this.skaterService.deleteImageProfile(id).subscribe((resp: any) => {
       sessionStorage.removeItem('urlImageProfile');
