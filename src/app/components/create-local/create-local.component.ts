@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Local } from 'src/app/interfaces/local';
+import { LocalService } from 'src/app/services/local.service';
+import { SnackMessageService } from 'src/app/services/snack-message.service';
 
 interface imageLocal {
   caminho: SafeUrl,
@@ -18,7 +20,9 @@ export class CreateLocalComponent implements OnInit {
 
   constructor(
     private sanitizer: DomSanitizer,
-    private router: Router
+    private router: Router,
+    private localService: LocalService,
+    private snackMessageService: SnackMessageService
   ) { }
 
   loader: boolean = true;
@@ -27,10 +31,12 @@ export class CreateLocalComponent implements OnInit {
 
   payloadSendImages: Array<FormData> = [];
 
+  formDataImage: FormData = new FormData();
+
   place: Local = {
     title: '',
     description: '',
-    access: '',
+    access: true,
     address_street: '',
     address_number: '',
     address_neighborhood: '',
@@ -57,9 +63,6 @@ export class CreateLocalComponent implements OnInit {
         caminho: this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file)),
         url: file
       }
-      let formData: FormData = new FormData();
-      formData.append('file_name', file);
-      this.payloadSendImages.push(formData);
       this.images.push(image)
       e.target.value = null;
     }
@@ -72,7 +75,21 @@ export class CreateLocalComponent implements OnInit {
   }
 
   createLocal(): void {
-
+    //adicionar logica para criar um array de formData com as imagens selecionadas
+    if (this.payloadSendImages.length == 0) {
+      this.snackMessageService.snackMessage('Selecione ao menos uma imagem!');
+    } else {
+      this.localService.createLocal(this.place).subscribe((resp: any) => {
+        let payloadImages = {
+          images: this.payloadSendImages,
+          id_local: resp.id
+        }
+        this.localService.createImageLocal(payloadImages).subscribe((resp: any) => {
+          console.log(resp);
+        })
+      })
+    }
+    this.payloadSendImages = [];
   }
 
   cancelCreateLocal(): void {
