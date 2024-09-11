@@ -23,7 +23,6 @@ export class LocalComponent implements OnInit {
 
   ngOnInit(): void {
     this.localService.readLocals().subscribe((resp: any) => {
-      console.log(resp)
       setTimeout(() => {
         this.local = resp
         this.insertPrincipalImageCard(this.local)
