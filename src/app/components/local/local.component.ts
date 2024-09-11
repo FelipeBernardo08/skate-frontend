@@ -19,14 +19,19 @@ export class LocalComponent implements OnInit {
 
   storageUrl: string = environment.BASE_URL_STORAGE;
 
+  imageUrl: string = '';
+
   ngOnInit(): void {
     this.localService.readLocals().subscribe((resp: any) => {
       console.log(resp)
       setTimeout(() => {
         this.local = resp
         this.insertPrincipalImageCard(this.local)
+        this.imageUrl = this.storageUrl + '/' + this.local[0].principalImage
         this.loader = false;
       }, 1000);
+    }, error => {
+      this.loader = false;
     })
   }
 
@@ -42,6 +47,22 @@ export class LocalComponent implements OnInit {
 
   changeImageAuto(): void {
 
+  }
+
+  getImageSkaterProfile(image: string): string {
+    return `${this.storageUrl}/${image}`
+  }
+
+  convertTime(time: string): string {
+    let date = new Date(time)
+    const brasiliaOffset = -3 * 60 * 60 * 1000;
+    const localDate = new Date(date.getTime() + brasiliaOffset);
+    const day = localDate.getUTCDate().toString().padStart(2, '0');
+    const month = (localDate.getUTCMonth() + 1).toString().padStart(2, '0'); // Meses começam do zero
+    const year = localDate.getUTCFullYear();
+    const hours = localDate.getUTCHours().toString().padStart(2, '0');
+    const minutes = localDate.getUTCMinutes().toString().padStart(2, '0');
+    return `${day}/${month}/${year} - ${hours}:${minutes}`;
   }
 
   calculateRows(text: string): number {

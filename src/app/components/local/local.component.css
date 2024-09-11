@@ -6,6 +6,10 @@
     font-size: 20px;
 }
 
+.header-image {
+    background-size: cover;
+}
+
 .title-center {
     display: flex;
     align-items: center;
@@ -17,4 +21,7 @@
 
 textarea {
     border: none;
+    background-color: none;
+    background: none;
+    color: black;
 }
