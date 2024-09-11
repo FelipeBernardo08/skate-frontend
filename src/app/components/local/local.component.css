@@ -5,3 +5,23 @@
     font-style: normal;
     font-size: 20px;
 }
+
+.header-image {
+    background-size: cover;
+}
+
+.title-center {
+    display: flex;
+    align-items: center;
+}
+
+.margin-icon {
+    margin-right: 8px;
+}
+
+textarea {
+    border: none;
+    background-color: none;
+    background: none;
+    color: black;
+}

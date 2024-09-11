@@ -48,7 +48,7 @@ import { CreateProductComponent } from './components/create-product/create-produ
     FormsModule,
     MatInputModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

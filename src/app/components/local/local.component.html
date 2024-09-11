@@ -8,5 +8,92 @@
 </div>
 
 <div *ngIf="!loader">
+    <div *ngIf="local.length != 0">
+        <div class="row justify-content-center">
+            <div *ngFor="let item of local; let i = index" class="col-lg-6 mt-3">
+                <mat-card class="mat-elevation-z8 p-0">
+                    <div class="row w-100 p-3">
 
+                        <div class="col-2">
+                            <div class="d-flex justify-content-center">
+                                <div mat-card-avatar id="avatar" class="header-image"
+                                    [ngStyle]="{'background-image': 'url(' + getImageSkaterProfile(item.skater.image_profile[0].file_name) + ')'}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-10">
+                            <div>
+                                {{item.skater.name}}
+                            </div>
+                            <div>
+                                {{convertTime(item.created_at)}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-100">
+                        <div id="carouselExampleCaptions" class="carousel slide">
+                            <div class="carousel-indicators">
+                                <button *ngFor="let img of item.images; let ii = index" type="button"
+                                    (click)="changeImage(i, ii, img.file_name)"
+                                    data-bs-target="#carouselExampleCaptions" [id]="img.file_name"
+                                    class="active"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img [src]="storageUrl+'/'+item.principalImage" class="d-block w-100" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div class="d-flex justify-content-center title-center ">
+                            <i class="material-icons margin-icon">flag</i> {{item.title}}
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-8 text-center">
+                                <span class="title-center">
+                                    <i class="material-icons margin-icon">pin_drop</i> {{item.address_street}},
+                                    {{item.address_number}}
+                                    -
+                                    {{item.address_city}}/{{item.address_estate}}
+                                </span>
+                            </div>
+                            <div class="col-4 text-center">
+                                <span class=" title-center">
+                                    <i class="material-icons margin-icon">skateboarding</i> {{item.access ?
+                                    'Público':'Privado' }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <textarea disabled [value]="item.description" [rows]="calculateRows(item.description)"
+                                    class="w-100"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <button class="btn btn-sm btn-outline-primary w-100 text-center">
+                                    <i class="material-icons mt-2">favorite</i>
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-sm btn-outline-primary w-100 text-center">
+                                    <i class="material-icons mt-2">chat</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="local.length == 0">
+        <div class="mt-3 text-center">
+            <p>
+                Não existem registros até o momento, cadastre-se e adicione spots.
+            </p>
+        </div>
+    </div>
 </div>
