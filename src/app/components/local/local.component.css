@@ -5,3 +5,16 @@
     font-style: normal;
     font-size: 20px;
 }
+
+.title-center {
+    display: flex;
+    align-items: center;
+}
+
+.margin-icon {
+    margin-right: 8px;
+}
+
+textarea {
+    border: none;
+}
