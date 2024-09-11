@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalService } from 'src/app/services/local.service';
 
 @Component({
   selector: 'app-local',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LocalComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private localService: LocalService
+  ) { }
+
+  loader: boolean = true;
+
+  local: Array<any> = [];
 
   ngOnInit(): void {
+    this.localService.readLocals().subscribe((resp: any) => {
+      setTimeout(() => {
+        this.local = resp
+        this.loader = false;
+      }, 1000);
+    })
   }
 
 }

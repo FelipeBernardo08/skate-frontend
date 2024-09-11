@@ -28,7 +28,11 @@ export class LocalService {
     return this.http.post(`${this.baseUrl}/create-local`, local, { headers: this.getHeaders() });
   }
 
-  public createImageLocal(image: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/create-image-local`, image, { headers: this.getHeaders() });
+  public createImageLocal(image: any, id: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/create-image-local/${id}`, image, { headers: this.getHeaders() });
+  }
+
+  public readLocals(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/read-locals`);
   }
 }

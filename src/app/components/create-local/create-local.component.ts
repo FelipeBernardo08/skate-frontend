@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { element } from 'protractor';
 import { Local } from 'src/app/interfaces/local';
 import { LocalService } from 'src/app/services/local.service';
 import { SnackMessageService } from 'src/app/services/snack-message.service';
@@ -30,8 +31,6 @@ export class CreateLocalComponent implements OnInit {
   images: Array<any> = [];
 
   payloadSendImages: Array<FormData> = [];
-
-  formDataImage: FormData = new FormData();
 
   place: Local = {
     title: '',
@@ -75,21 +74,20 @@ export class CreateLocalComponent implements OnInit {
   }
 
   createLocal(): void {
-    //adicionar logica para criar um array de formData com as imagens selecionadas
-    if (this.payloadSendImages.length == 0) {
+    if (this.images.length == 0) {
       this.snackMessageService.snackMessage('Selecione ao menos uma imagem!');
     } else {
       this.localService.createLocal(this.place).subscribe((resp: any) => {
-        let payloadImages = {
-          images: this.payloadSendImages,
-          id_local: resp.id
-        }
-        this.localService.createImageLocal(payloadImages).subscribe((resp: any) => {
-          console.log(resp);
+        this.images.forEach((element: any) => {
+          let formData = new FormData();
+          formData.append('file_name', element.url)
+          this.localService.createImageLocal(formData, resp.id).subscribe((resp: any) => {
+            this.snackMessageService.snackMessage(resp.msg);
+            this.router.navigate(['/local']);
+          })
         })
       })
     }
-    this.payloadSendImages = [];
   }
 
   cancelCreateLocal(): void {
