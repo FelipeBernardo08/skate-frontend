@@ -1,1 +1,43 @@
-<p>include works!</p>
+<div *ngIf="loader">
+    <div class="d-flex justify-content-center mt-3">
+        <img class="img-fluid" src="../../../assets/3ohze2IqF09aevkCVa.webp" alt="">
+    </div>
+    <div class="text-center creepster-regular">
+        Carregando...
+    </div>
+</div>
+
+<div *ngIf="!loader" class="row justify-content-center mt-3">
+    <div class="col-lg-6 mt-3">
+        <div class="d-flex justify-content-center">
+            <mat-card (click)="openCreateLocal()" class="mat-elevation-z4 w-75 cursor-pointer">
+                <div class="text-center">
+                    <div class="d-flex justify-content-center">
+                        <div class="w-50">
+                            <img src="../../../assets/local.png" class="img-fluid" alt="">
+                        </div>
+                    </div>
+                    <div class="mt-3 creepster-regular">
+                        PISTAS E PICOS
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+    <div class="col-lg-6 mt-3">
+        <div class="d-flex justify-content-center">
+            <mat-card (click)="openCreateProduct()" class="mat-elevation-z4 w-75 cursor-pointer">
+                <div class="text-center">
+                    <div class="d-flex justify-content-center">
+                        <div class="w-50">
+                            <img src="../../../assets/remando.png" class="img-fluid" alt="">
+                        </div>
+                    </div>
+                    <div class="mt-3 creepster-regular">
+                        PEÇAS E EQUIPAMENTOS
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

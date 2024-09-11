@@ -24,6 +24,10 @@ export class LoginComponent implements OnInit {
   hide: boolean = true;
 
   ngOnInit(): void {
+    let token = sessionStorage.getItem('token')
+    if (token) {
+      this.router.navigate(['/profile']);
+    }
   }
 
   showPassword(): void {
@@ -35,7 +39,12 @@ export class LoginComponent implements OnInit {
       this.loginService.login(this.login).subscribe((resp: any) => {
         sessionStorage.setItem('token', resp);
         this.router.navigate(['/profile']);
-        this.snackMessageService.snackMessage('Sucesso!');
+      }, (error) => {
+        if (error.status == 404) {
+          this.snackMessageService.snackMessage('Credenciais incorretas ou não existem.')
+        } else if (error.status == 0) {
+          this.snackMessageService.snackMessage('Erro de conexão, tente novamente mais tarde!');
+        }
       })
     }
   }

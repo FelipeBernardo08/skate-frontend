@@ -26,6 +26,10 @@ export class CreateSkaterComponent implements OnInit {
 
 
   ngOnInit(): void {
+    let token = sessionStorage.getItem('token')
+    if (token) {
+      this.router.navigate(['/profile']);
+    }
   }
 
   showPassword(): void {
@@ -38,7 +42,12 @@ export class CreateSkaterComponent implements OnInit {
         this.snackMessageService.snackMessage('Registro criado com sucesso!');
         this.router.navigate(['/login']);
       }, error => {
-        this.snackMessageService.snackMessage('error');
+        this.snackMessageService.snackMessage('Erro de conexão, tente novamente mais tarde!');
+        if (error.status == 0) {
+          this.snackMessageService.snackMessage('Erro de conexão, tente novamente mais tarde!');
+        } else if (error.status == 404) {
+          this.snackMessageService.snackMessage('E-mail já cadastrado, recupere a senha ou use outro e-mail.');
+        }
       })
     }
   }

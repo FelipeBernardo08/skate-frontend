@@ -20,6 +20,8 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CreateLocalComponent } from './components/create-local/create-local.component';
+import { CreateProductComponent } from './components/create-product/create-product.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     LoginComponent,
     CreateSkaterComponent,
     LocalComponent,
-    IncludeComponent
+    IncludeComponent,
+    CreateLocalComponent,
+    CreateProductComponent
   ],
   imports: [
     BrowserModule,

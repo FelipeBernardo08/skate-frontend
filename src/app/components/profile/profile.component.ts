@@ -31,6 +31,8 @@ export class ProfileComponent implements OnInit {
 
   conditionChangePassword: boolean = false;
 
+  loader: boolean = true;
+
   private urlStore: string = environment.BASE_URL_STORAGE;
 
   hide1: boolean = true;
@@ -66,24 +68,25 @@ export class ProfileComponent implements OnInit {
   }
 
   getUser(): void {
-    this.respUser = [];
+    this.loader = true;
     this.loginService.me().subscribe((resp: any) => {
       setTimeout(() => {
+        this.loader = false;
         this.respUser = resp;
-      }, 3000);
-      this.user.name = resp[0].skater[0].name;
-      this.user.fone = resp[0].skater[0].fone;
-      this.user.cpf = resp[0].skater[0].cpf
-      this.user.address_city = resp[0].skater[0].address_city;
-      this.user.address_neighborhood = resp[0].skater[0].address_neighborhood;
-      this.user.urlImage = `${this.urlStore}/${resp[0].skater[0].image_profile[0].file_name}`;
-      if (this.user.urlImage != '') {
-        sessionStorage.setItem('urlImageProfile', this.user.urlImage);
-        this.eventService.changeImage();
-      }
-      setTimeout(() => {
+        this.user.name = resp[0].skater[0].name;
+        this.user.fone = resp[0].skater[0].fone;
+        this.user.cpf = resp[0].skater[0].cpf
+        this.user.address_city = resp[0].skater[0].address_city;
+        this.user.address_neighborhood = resp[0].skater[0].address_neighborhood;
+        this.user.urlImage = `${this.urlStore}/${resp[0].skater[0].image_profile[0]?.file_name}`;
+        if (resp[0].skater[0].image_profile[0]?.file_name != null || resp[0].skater[0].image_profile[0]?.file_name != undefined) {
+          sessionStorage.setItem('urlImageProfile', this.user.urlImage);
+          this.eventService.changeImage();
+        }
         this.getImageSessionStorage();
-      }, 10);
+      }, 3000);
+    }, (error) => {
+      this.loader = false;
     })
   }
 
@@ -102,7 +105,6 @@ export class ProfileComponent implements OnInit {
 
   selectImage(event: any): void {
     const file = event.target.files[0];
-
     if (file) {
       const objectUrl = URL.createObjectURL(file);
       this.imageUrl = objectUrl;
@@ -172,11 +174,12 @@ export class ProfileComponent implements OnInit {
     this.loginService.logout().subscribe(() => {
       sessionStorage.clear();
       this.eventService.changeImage();
-      this.router.navigate(['/'])
+      this.router.navigate(['/login'])
     })
   }
 
   deleteImageProfile(): void {
+    this.loader = true;
     let id: any = this.respUser[0].skater[0].image_profile[0].id
     this.skaterService.deleteImageProfile(id).subscribe((resp: any) => {
       sessionStorage.removeItem('urlImageProfile');
