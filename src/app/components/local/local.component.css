@@ -26,4 +26,19 @@ textarea {
     background-color: none;
     background: none;
     color: black;
+    resize: none;
+}
+
+.image-card {
+    height: 40svh;
+}
+
+.selected {
+    border: none;
+    background: blue;
+    color: white;
+}
+
+.likes-coments-font {
+    font-size: 70%;
 }

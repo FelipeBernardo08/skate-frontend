@@ -35,4 +35,8 @@ export class LocalService {
   public readLocals(): Observable<any> {
     return this.http.get(`${this.baseUrl}/read-locals`);
   }
+
+  public sendLike(like: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/create-like-local`, like, { headers: this.getHeaders() });
+  }
 }

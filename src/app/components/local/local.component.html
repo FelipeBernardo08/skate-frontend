@@ -41,7 +41,8 @@
                             </div>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img [src]="storageUrl+'/'+item.principalImage" class="d-block w-100" alt="...">
+                                    <img [src]="storageUrl+'/'+item.principalImage" class="d-block w-100 image-card"
+                                        alt="...">
                                 </div>
                             </div>
                         </div>
@@ -74,9 +75,12 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <button class="btn btn-sm btn-outline-primary w-100 text-center">
+                                <button (click)="sendLikeLocal(item.id)" [class]="checkLikes(item.likes)">
                                     <i class="material-icons mt-2">favorite</i>
                                 </button>
+                                <div *ngIf="item.likes.length != 0" class="text-center mt-2 likes-coments-font">
+                                    {{item.likes.length}} {{item.likes.length == 1 ? 'Curtida' : 'Curtidas' }}
+                                </div>
                             </div>
                             <div class="col-6">
                                 <button class="btn btn-sm btn-outline-primary w-100 text-center">

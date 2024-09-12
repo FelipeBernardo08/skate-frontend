@@ -79,11 +79,10 @@
                         </div>
                         <div class="col-md-4">
                             <mat-form-field appearance="fill" class="w-100 mt-3">
-                                <mat-label>Bairro</mat-label>
-                                <input matInput placeholder="Digite o nome do bairro"
-                                    [(ngModel)]="user.address_neighborhood" [disabled]="conditionEditProfile"
-                                    name="address_neighborhood" required>
-                                <mat-error>O campo bairro é obrigatório</mat-error>
+                                <mat-label>Estado UF</mat-label>
+                                <input matInput placeholder="Digite o estado" [(ngModel)]="user.address_estate"
+                                    [disabled]="conditionEditProfile" name="address_estate" required>
+                                <mat-error>O campo estado é obrigatório</mat-error>
                             </mat-form-field>
                         </div>
                     </div>

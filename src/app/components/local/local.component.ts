@@ -22,9 +22,14 @@ export class LocalComponent implements OnInit {
   imageUrl: string = '';
 
   ngOnInit(): void {
+    this.getLocalsComplete();
+  }
+
+  getLocalsComplete(): void {
     this.localService.readLocals().subscribe((resp: any) => {
       setTimeout(() => {
         this.local = resp
+        console.log(this.local)
         this.insertPrincipalImageCard(this.local)
         this.imageUrl = this.storageUrl + '/' + this.local[0].principalImage
         this.loader = false;
@@ -44,8 +49,13 @@ export class LocalComponent implements OnInit {
     this.local[indexCard].principalImage = this.local[indexCard].images[indexImage].file_name;
   }
 
-  changeImageAuto(): void {
-
+  sendLikeLocal(id: any): void {
+    let payload = {
+      id_local: id
+    }
+    this.localService.sendLike(payload).subscribe((resp: any) => {
+      this.getLocalsComplete();
+    })
   }
 
   getImageSkaterProfile(image: string): string {
@@ -64,8 +74,22 @@ export class LocalComponent implements OnInit {
     return `${day}/${month}/${year} - ${hours}:${minutes}`;
   }
 
+  checkLikes(likes: Array<any>): string {
+    let id: string | null = sessionStorage.getItem('id_skater');
+    let haveId: boolean = false;
+    likes.forEach((element: any) => {
+      if (element.fk_skater == id) {
+        haveId = true;
+      }
+    });
+    if (haveId == false) {
+      return 'btn btn-sm btn-outline-primary w-100 text-center'
+    }
+    return 'btn btn-sm btn-outline-primary w-100 text-center selected'
+  }
+
   calculateRows(text: string): number {
     let result = text.split('\n');
-    return result.length + 1;
+    return result.length + 3;
   }
 }
