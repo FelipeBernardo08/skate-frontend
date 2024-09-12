@@ -11,6 +11,7 @@
 }
 
 .title-center {
+    font-size: 80%;
     display: flex;
     align-items: center;
 }
@@ -20,6 +21,7 @@
 }
 
 textarea {
+    font-size: 80%;
     border: none;
     background-color: none;
     background: none;
