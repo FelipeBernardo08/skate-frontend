@@ -90,6 +90,9 @@ export class LocalComponent implements OnInit {
 
   calculateRows(text: string): number {
     let result = text.split('\n');
-    return result.length + 3;
+    if (result.length + 3 < 7) {
+      return result.length + 3;
+    }
+    return 7;
   }
 }
