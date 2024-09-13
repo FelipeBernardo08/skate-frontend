@@ -39,4 +39,8 @@ export class LocalService {
   public sendLike(like: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/create-like-local`, like, { headers: this.getHeaders() });
   }
+
+  public removeLike(likeId: any): Observable<any> {
+    return this.http.delete(`${this}/remove-like-local/${likeId}`, { headers: this.getHeaders() });
+  }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalService } from 'src/app/services/local.service';
+import { SnackMessageService } from 'src/app/services/snack-message.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -10,7 +11,8 @@ import { environment } from 'src/environments/environment';
 export class LocalComponent implements OnInit {
 
   constructor(
-    private localService: LocalService
+    private localService: LocalService,
+    private snackMessageService: SnackMessageService
   ) { }
 
   loader: boolean = true;
@@ -29,7 +31,6 @@ export class LocalComponent implements OnInit {
     this.localService.readLocals().subscribe((resp: any) => {
       setTimeout(() => {
         this.local = resp
-        console.log(this.local)
         this.insertPrincipalImageCard(this.local)
         this.imageUrl = this.storageUrl + '/' + this.local[0].principalImage
         this.loader = false;
@@ -50,12 +51,18 @@ export class LocalComponent implements OnInit {
   }
 
   sendLikeLocal(id: any): void {
-    let payload = {
-      id_local: id
+    if (sessionStorage.getItem('token') == null) {
+      this.snackMessageService.snackMessage('Efetue o login para enviar sua curtida!');
+    } else {
+      let payload = {
+        id_local: id
+      }
+      this.localService.sendLike(payload).subscribe((resp: any) => {
+        this.getLocalsComplete();
+      }, error => {
+        this.snackMessageService.snackMessage('Erro no servidor, tente novamente mais tarde!');
+      })
     }
-    this.localService.sendLike(payload).subscribe((resp: any) => {
-      this.getLocalsComplete();
-    })
   }
 
   getImageSkaterProfile(image: string): string {
@@ -67,7 +74,7 @@ export class LocalComponent implements OnInit {
     const brasiliaOffset = -3 * 60 * 60 * 1000;
     const localDate = new Date(date.getTime() + brasiliaOffset);
     const day = localDate.getUTCDate().toString().padStart(2, '0');
-    const month = (localDate.getUTCMonth() + 1).toString().padStart(2, '0'); // Meses começam do zero
+    const month = (localDate.getUTCMonth() + 1).toString().padStart(2, '0');
     const year = localDate.getUTCFullYear();
     const hours = localDate.getUTCHours().toString().padStart(2, '0');
     const minutes = localDate.getUTCMinutes().toString().padStart(2, '0');
