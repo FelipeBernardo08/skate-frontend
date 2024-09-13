@@ -39,6 +39,12 @@ textarea {
     color: white;
 }
 
+.selected:hover {
+    background: white;
+    color: blue;
+    border: 1px solid blue;
+}
+
 .likes-coments-font {
     font-size: 70%;
 }

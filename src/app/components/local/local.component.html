@@ -75,7 +75,8 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <button (click)="sendLikeLocal(item.id)" [class]="checkLikes(item.likes)">
+                                <button [disabled]="buttonLikeDisabled" (click)="sendLikeLocal(item.id, item.likes)"
+                                    [class]="checkLikes(item.likes) ? 'btn btn-sm btn-outline-primary w-100 text-center selected' : 'btn btn-sm btn-outline-primary w-100 text-center' ">
                                     <i class="material-icons mt-2">favorite</i>
                                 </button>
                                 <div *ngIf="item.likes.length != 0" class="text-center mt-2 likes-coments-font">
