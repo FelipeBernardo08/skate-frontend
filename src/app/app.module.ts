@@ -22,6 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CreateLocalComponent } from './components/create-local/create-local.component';
 import { CreateProductComponent } from './components/create-product/create-product.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialgoCommentsComponent } from './components/dialgo-comments/dialgo-comments.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { CreateProductComponent } from './components/create-product/create-produ
     LocalComponent,
     IncludeComponent,
     CreateLocalComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    DialgoCommentsComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,7 @@ import { CreateProductComponent } from './components/create-product/create-produ
     MatInputModule,
     HttpClientModule,
     MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

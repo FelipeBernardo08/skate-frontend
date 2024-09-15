@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { LocalService } from 'src/app/services/local.service';
 import { SnackMessageService } from 'src/app/services/snack-message.service';
 import { environment } from 'src/environments/environment';
+import { MatDialog } from '@angular/material/dialog';
+import { DialgoCommentsComponent } from '../dialgo-comments/dialgo-comments.component';
+import { EventCommentService } from 'src/app/services/event-comment.service';
 
 @Component({
   selector: 'app-local',
@@ -12,7 +15,9 @@ export class LocalComponent implements OnInit {
 
   constructor(
     private localService: LocalService,
-    private snackMessageService: SnackMessageService
+    private snackMessageService: SnackMessageService,
+    public dialog: MatDialog,
+    private eventCommentService: EventCommentService
   ) { }
 
   loader: boolean = true;
@@ -26,6 +31,9 @@ export class LocalComponent implements OnInit {
   imageUrl: string = '';
 
   ngOnInit(): void {
+    this.eventCommentService.eventEmitter.subscribe(() => {
+      this.getLocalsComplete();
+    })
     this.getLocalsComplete();
   }
 
@@ -90,9 +98,7 @@ export class LocalComponent implements OnInit {
     const day = localDate.getUTCDate().toString().padStart(2, '0');
     const month = (localDate.getUTCMonth() + 1).toString().padStart(2, '0');
     const year = localDate.getUTCFullYear();
-    const hours = localDate.getUTCHours().toString().padStart(2, '0');
-    const minutes = localDate.getUTCMinutes().toString().padStart(2, '0');
-    return `${day}/${month}/${year} - ${hours}:${minutes}`;
+    return `${day}/${month}/${year}`;
   }
 
   checkLikes(likes: Array<any>): boolean {
@@ -112,5 +118,15 @@ export class LocalComponent implements OnInit {
       return result.length + 3;
     }
     return 7;
+  }
+
+  openComments(coments: Array<any>, id: number): void {
+    this.dialog.open(DialgoCommentsComponent, {
+      data: {
+        coments: coments,
+        id_local: id
+      },
+      width: '95svw'
+    })
   }
 }

@@ -84,9 +84,13 @@
                                 </div>
                             </div>
                             <div class="col-6">
-                                <button class="btn btn-sm btn-outline-primary w-100 text-center">
+                                <button (click)="openComments(item.coments, item.id)"
+                                    class="btn btn-sm btn-outline-primary w-100 text-center">
                                     <i class="material-icons mt-2">chat</i>
                                 </button>
+                                <div *ngIf="item.coments.length != 0" class="text-center mt-2 likes-coments-font">
+                                    {{item.coments.length}} {{item.coments.length == 1 ? 'Comentário' : 'Comentários'}}
+                                </div>
                             </div>
                         </div>
                     </div>

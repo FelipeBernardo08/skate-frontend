@@ -12,7 +12,22 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public openAnuncios(): void {
-  }
-
+  contentSideBar: Array<any> = [
+    {
+      name: 'location_on',
+      link: '/'
+    },
+    {
+      name: 'add',
+      link: '/include'
+    },
+    {
+      name: 'newspaper',
+      link: '/product'
+    },
+    {
+      name: 'person',
+      link: '/profile'
+    }
+  ];
 }
