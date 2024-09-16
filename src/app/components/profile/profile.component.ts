@@ -85,7 +85,7 @@ export class ProfileComponent implements OnInit {
           this.eventService.changeImage();
         }
         this.getImageSessionStorage();
-      }, 3000);
+      }, 1500);
     }, (error) => {
       this.loader = false;
     })

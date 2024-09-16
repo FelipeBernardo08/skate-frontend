@@ -18,3 +18,7 @@
     resize: none;
     overflow: auto;
 }
+
+.font-title {
+    font-size: 10px;
+}

@@ -87,7 +87,7 @@ export class CreateLocalComponent implements OnInit {
           formData.append('file_name', element.url)
           this.localService.createImageLocal(formData, resp.id).subscribe((resp: any) => {
             this.snackMessageService.snackMessage(resp.msg);
-            this.router.navigate(['/local']);
+            this.router.navigate(['/']);
           })
         })
       })

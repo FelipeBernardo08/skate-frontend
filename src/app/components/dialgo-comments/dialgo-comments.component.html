@@ -11,6 +11,9 @@
                 <div mat-card-avatar id="avatar" class="header-image"
                     [ngStyle]="{'background-image': 'url(' + returnImage(item.skater.image_profile[0].file_name) +')'}">
                 </div>
+                <div class="font-title mt-2">
+                    {{item.skater.name}}
+                </div>
             </div>
             <div class="col-6 text-end">
                 {{convertTime(item.date)}}
@@ -26,7 +29,7 @@
     <div class="row">
         <mat-form-field appearance="fill" class="w-100 mt-2">
             <mat-label>Adicionar comentário</mat-label>
-            <textarea matInput [(ngModel)]="commentPayload.coment" name="coment" rows="4"></textarea>
+            <textarea matInput [(ngModel)]="commentPayload.coment" name="coment" rows="1"></textarea>
             <mat-error>O campo comentário é obrigatório</mat-error>
         </mat-form-field>
     </div>
