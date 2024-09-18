@@ -31,20 +31,27 @@ export class LocalComponent implements OnInit {
   imageUrl: string = '';
 
   ngOnInit(): void {
-    this.eventCommentService.eventEmitter.subscribe(() => {
-      this.getLocalsComplete();
+    this.eventCommentService.eventEmitter.subscribe((id: any) => {
+      this.localService.readLocals().subscribe((resp: any) => {
+        this.local = resp
+        this.insertPrincipalImageCard(this.local)
+        this.imageUrl = this.storageUrl + '/' + this.local[0].principalImage
+        this.loader = false;
+        let resultArray = this.local.filter((locals: any) => locals.id == id);
+        this.openComments(resultArray[0].coments, id)
+      }, error => {
+        this.loader = false;
+      })
     })
     this.getLocalsComplete();
   }
 
   getLocalsComplete(): void {
     this.localService.readLocals().subscribe((resp: any) => {
-      setTimeout(() => {
-        this.local = resp
-        this.insertPrincipalImageCard(this.local)
-        this.imageUrl = this.storageUrl + '/' + this.local[0].principalImage
-        this.loader = false;
-      }, 1000);
+      this.local = resp
+      this.insertPrincipalImageCard(this.local)
+      this.imageUrl = this.storageUrl + '/' + this.local[0].principalImage
+      this.loader = false;
     }, error => {
       this.loader = false;
     })
@@ -121,6 +128,11 @@ export class LocalComponent implements OnInit {
   }
 
   openComments(coments: Array<any>, id: number): void {
+    coments.sort((a, b) => {
+      let indexA = coments.indexOf(a);
+      let indexB = coments.indexOf(b);
+      return indexB - indexA;
+    });
     this.dialog.open(DialgoCommentsComponent, {
       data: {
         coments: coments,

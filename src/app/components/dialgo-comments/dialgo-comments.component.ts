@@ -34,7 +34,6 @@ export class DialgoCommentsComponent implements OnInit {
   }
 
   onClose(): void {
-    this.eventComentService.sendComment();
     this.dialogRef.close();
   }
 
@@ -48,8 +47,9 @@ export class DialgoCommentsComponent implements OnInit {
   sendComent(): void {
     this.localService.sendCommentToLocal(this.commentPayload).subscribe((resp: any) => {
       this.commentPayload.coment = '';
-      this.onClose();
       this.snackMessageService.snackMessage('Comentário enviado com sucesso!');
+      this.eventComentService.sendComment(this.commentPayload.id_local);
+      this.onClose();
     })
   }
 

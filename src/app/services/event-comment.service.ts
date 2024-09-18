@@ -9,7 +9,7 @@ export class EventCommentService {
 
   constructor() { }
 
-  sendComment(): void {
-    this.eventEmitter.emit();
+  sendComment(length: any): void {
+    this.eventEmitter.emit(length);
   }
 }
