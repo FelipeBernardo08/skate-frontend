@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
     fone: '',
     cpf: '',
     address_city: '',
-    address_neighborhood: '',
+    address_estate: '',
     urlImage: ''
   }
 
@@ -77,14 +77,15 @@ export class ProfileComponent implements OnInit {
         this.user.fone = resp[0].skater[0].fone;
         this.user.cpf = resp[0].skater[0].cpf
         this.user.address_city = resp[0].skater[0].address_city;
-        this.user.address_neighborhood = resp[0].skater[0].address_neighborhood;
+        this.user.address_estate = resp[0].skater[0].address_estate;
         this.user.urlImage = `${this.urlStore}/${resp[0].skater[0].image_profile[0]?.file_name}`;
+        sessionStorage.setItem('id_skater', resp[0].skater[0].id);
         if (resp[0].skater[0].image_profile[0]?.file_name != null || resp[0].skater[0].image_profile[0]?.file_name != undefined) {
           sessionStorage.setItem('urlImageProfile', this.user.urlImage);
           this.eventService.changeImage();
         }
         this.getImageSessionStorage();
-      }, 3000);
+      }, 1500);
     }, (error) => {
       this.loader = false;
     })
@@ -157,7 +158,7 @@ export class ProfileComponent implements OnInit {
   }
 
   sendUpdateUser(): void {
-    if (this.user.name != '' && this.user.fone != '' && this.user.cpf != '' && this.user.address_city != '' && this.user.address_neighborhood) {
+    if (this.user.name != '' && this.user.fone != '' && this.user.cpf != '' && this.user.address_city != '' && this.user.address_estate) {
       this.skaterService.updateUser(this.user).subscribe((resp: any) => {
         this.getUser();
       })

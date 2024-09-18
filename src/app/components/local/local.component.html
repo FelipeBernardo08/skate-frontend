@@ -41,7 +41,8 @@
                             </div>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img [src]="storageUrl+'/'+item.principalImage" class="d-block w-100" alt="...">
+                                    <img [src]="storageUrl+'/'+item.principalImage" class="d-block w-100 image-card"
+                                        alt="...">
                                 </div>
                             </div>
                         </div>
@@ -51,7 +52,7 @@
                             <i class="material-icons margin-icon">flag</i> {{item.title}}
                         </div>
                         <div class="row mt-3">
-                            <div class="col-8 text-center">
+                            <div class="col-8">
                                 <span class="title-center">
                                     <i class="material-icons margin-icon">pin_drop</i> {{item.address_street}},
                                     {{item.address_number}}
@@ -59,7 +60,7 @@
                                     {{item.address_city}}/{{item.address_estate}}
                                 </span>
                             </div>
-                            <div class="col-4 text-center">
+                            <div class="col-4">
                                 <span class=" title-center">
                                     <i class="material-icons margin-icon">skateboarding</i> {{item.access ?
                                     'Público':'Privado' }}
@@ -74,14 +75,22 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <button class="btn btn-sm btn-outline-primary w-100 text-center">
+                                <button [disabled]="buttonLikeDisabled" (click)="sendLikeLocal(item.id, item.likes)"
+                                    [class]="checkLikes(item.likes) ? 'btn btn-sm btn-outline-primary w-100 text-center selected' : 'btn btn-sm btn-outline-primary w-100 text-center' ">
                                     <i class="material-icons mt-2">favorite</i>
                                 </button>
+                                <div *ngIf="item.likes.length != 0" class="text-center mt-2 likes-coments-font">
+                                    {{item.likes.length}} {{item.likes.length == 1 ? 'Curtida' : 'Curtidas' }}
+                                </div>
                             </div>
                             <div class="col-6">
-                                <button class="btn btn-sm btn-outline-primary w-100 text-center">
+                                <button (click)="openComments(item.coments, item.id)"
+                                    class="btn btn-sm btn-outline-primary w-100 text-center">
                                     <i class="material-icons mt-2">chat</i>
                                 </button>
+                                <div *ngIf="item.coments.length != 0" class="text-center mt-2 likes-coments-font">
+                                    {{item.coments.length}} {{item.coments.length == 1 ? 'Comentário' : 'Comentários'}}
+                                </div>
                             </div>
                         </div>
                     </div>

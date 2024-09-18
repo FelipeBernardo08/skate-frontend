@@ -62,7 +62,11 @@ export class CreateLocalComponent implements OnInit {
         caminho: this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file)),
         url: file
       }
-      this.images.push(image)
+      if (this.images.length < 5) {
+        this.images.push(image)
+      } else {
+        this.snackMessageService.snackMessage('Máxima quantidade de imagens alcançada.')
+      }
       e.target.value = null;
     }
   }
@@ -83,7 +87,7 @@ export class CreateLocalComponent implements OnInit {
           formData.append('file_name', element.url)
           this.localService.createImageLocal(formData, resp.id).subscribe((resp: any) => {
             this.snackMessageService.snackMessage(resp.msg);
-            this.router.navigate(['/local']);
+            this.router.navigate(['/']);
           })
         })
       })

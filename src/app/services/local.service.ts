@@ -35,4 +35,16 @@ export class LocalService {
   public readLocals(): Observable<any> {
     return this.http.get(`${this.baseUrl}/read-locals`);
   }
+
+  public sendLike(like: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/create-like-local`, like, { headers: this.getHeaders() });
+  }
+
+  public removeLike(likeId: any): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/remove-like-local/${likeId}`, { headers: this.getHeaders() });
+  }
+
+  public sendCommentToLocal(coment: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/create-comment-local`, coment, { headers: this.getHeaders() });
+  }
 }

@@ -11,6 +11,7 @@
 }
 
 .title-center {
+    font-size: 80%;
     display: flex;
     align-items: center;
 }
@@ -20,8 +21,30 @@
 }
 
 textarea {
+    font-size: 80%;
     border: none;
     background-color: none;
     background: none;
     color: black;
+    resize: none;
+}
+
+.image-card {
+    height: 40svh;
+}
+
+.selected {
+    border: none;
+    background: blue;
+    color: white;
+}
+
+.selected:hover {
+    background: white;
+    color: blue;
+    border: 1px solid blue;
+}
+
+.likes-coments-font {
+    font-size: 70%;
 }

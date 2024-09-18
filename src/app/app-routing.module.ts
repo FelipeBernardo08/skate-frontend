@@ -12,15 +12,15 @@ import { CreateProductComponent } from './components/create-product/create-produ
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: LocalComponent
   },
   {
     path: 'include',
     component: IncludeComponent
   },
   {
-    path: 'local',
-    component: LocalComponent
+    path: 'product',
+    component: HomeComponent
   },
   {
     path: 'profile',

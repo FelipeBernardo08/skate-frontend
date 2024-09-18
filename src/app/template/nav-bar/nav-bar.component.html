@@ -1,16 +1,7 @@
 <nav class="p-3 m-0 fixed-bottom bg-white mat-elevation-z8">
     <div class="d-flex justify-content-around">
-        <div>
-            <i routerLink="/" class="material-icons cursor-pointer">newspaper</i>
-        </div>
-        <div>
-            <i routerLink="/include" class="material-icons cursor-pointer" alt="Publicar">add</i>
-        </div>
-        <div>
-            <i routerLink="/local" class="material-icons cursor-pointer">location_on</i>
-        </div>
-        <div>
-            <i routerLink="/profile" class="material-icons cursor-pointer">person</i>
+        <div *ngFor="let item of contentSideBar">
+            <i [routerLink]="item.link" class="material-icons cursor-pointer">{{item.name}}</i>
         </div>
     </div>
 </nav>

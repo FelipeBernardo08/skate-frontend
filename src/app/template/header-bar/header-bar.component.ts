@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { EventsService } from 'src/app/services/events.service';
 
 @Component({
@@ -10,6 +11,7 @@ export class HeaderBarComponent implements OnInit {
 
   constructor(
     private eventService: EventsService,
+    private router: Router
   ) { }
 
   imageUrl: string = ''
@@ -28,5 +30,9 @@ export class HeaderBarComponent implements OnInit {
     } else {
       this.imageUrl = img;
     }
+  }
+
+  goToProfile(): void {
+    this.router.navigate(['/profile'])
   }
 }
