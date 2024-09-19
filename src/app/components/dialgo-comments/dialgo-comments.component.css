@@ -1,0 +1,24 @@
+.coments {
+    max-height: 40svh;
+    overflow: auto;
+}
+
+.header-image {
+    background-size: cover;
+    cursor: pointer;
+}
+
+.text-coment {
+    border: none;
+    background-color: none;
+    background: none;
+    color: black;
+    margin: 0;
+    padding: 0;
+    resize: none;
+    overflow: auto;
+}
+
+.font-title {
+    font-size: 10px;
+}

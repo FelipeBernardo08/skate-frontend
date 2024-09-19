@@ -1,0 +1,116 @@
+<div *ngIf="loader">
+    <div class="d-flex justify-content-center mt-3">
+        <img class="img-fluid" src="../../../assets/3ohze2IqF09aevkCVa.webp" alt="">
+    </div>
+    <div class="text-center creepster-regular">
+        Carregando...
+    </div>
+</div>
+
+<div *ngIf="!loader">
+    <mat-card class="mt-3 mat-elevation-z4">
+        <div class="mb-3 text-center">
+            <span class="creepster-regular">
+                Adicionar peça - equipamento
+            </span>
+        </div>
+        <div class="mt-3">
+            <form id="form-product">
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field appearance="fill" class="w-100 mt-2">
+                            <mat-label>Tipo anúncio</mat-label>
+                            <mat-select [(ngModel)]="product.announcement_type" name="announcement_type" required>
+                                <mat-option value="Troca">Troca</mat-option>
+                                <mat-option value="Doação">Doação</mat-option>
+                            </mat-select>
+                            <mat-error>O campo tipo do anúncio é obrigatório</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field appearance="fill" class="w-100 mt-2">
+                            <mat-label>Tipo Equipamento</mat-label>
+                            <mat-select [(ngModel)]="product.fk_type_product" name="fk_type_product" required>
+                                <mat-option (click)="getSubType(item.name)" *ngFor="let item of typeProducts"
+                                    [value]="item.id">{{item.name}}</mat-option>
+                            </mat-select>
+                            <mat-error>O campo tipo equipamento é obrigatório</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field appearance="fill" class="w-100 mt-2">
+                            <mat-label>Subtipo Equipamento</mat-label>
+                            <mat-select [(ngModel)]="product.fk_subtype_product" name="fk_subtype_product" required
+                                [disabled]="product.fk_type_product == ''">
+                                <mat-option *ngFor="let item of subtype" [value]="item.id">{{item.name}}</mat-option>
+                            </mat-select>
+                            <mat-error>O campo sub-tipo equipamento é obrigatório</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field appearance="fill" class="w-100 mt-2">
+                            <mat-label>Marca</mat-label>
+                            <input matInput placeholder="Digite a marca" [(ngModel)]="product.brand" name="brand"
+                                required>
+                            <mat-error>O campo marca é obrigatório</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field appearance="fill" class="w-100 mt-2">
+                            <mat-label>Tamanho</mat-label>
+                            <input matInput placeholder="Digite o tamanho" [(ngModel)]="product.size" name="size"
+                                required>
+                            <mat-error>O campo tamanho é obrigatório</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12">
+                        <mat-form-field appearance="fill" class="w-100 mt-2">
+                            <mat-label>Descrição</mat-label>
+                            <textarea matInput [(ngModel)]="product.description" placeholder="Opcional"
+                                name="description" rows="5"></textarea>
+                            <mat-error>O campo estado é obrigatório</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="creepster-regular text-center mt-3">
+                    Fotos
+                </div>
+                <div class="text-center font-small">
+                    Máximo 5 imagens.
+                </div>
+
+                <div *ngIf="images.length != 0 " class="row justify-content-center">
+                    <div *ngFor="let item of images" class="col-md-4 mt-3">
+                        <img [src]="item.caminho" class="img-fluid border-radius">
+                        <div class="d-flex justify-content-center">
+                            <button type="button" (click)="removeImage(item.url)" class="btn btn-sm btn-danger mt-2">
+                                <i class="material-icons text-light">delete</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt-3">
+                    <button type="button" (click)="triggerImage()" class="btn btn-success btn-sm text-ligh w-25">
+                        +
+                    </button>
+                    <input accept="image/*" #fileInput (change)="selectImage($event)" hidden type="file">
+                </div>
+
+
+                <div class="mt-5 row">
+                    <div class="col-6">
+                        <button type="button" (click)="cancelCreateProduct()"
+                            class="btn btn-sm btn-danger w-50">Cancelar</button>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex justify-content-end">
+                            <button (click)="createProduct()" class="btn btn-primary btn-sm w-50">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </mat-card>
+</div>
