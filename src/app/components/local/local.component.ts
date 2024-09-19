@@ -51,9 +51,13 @@ export class LocalComponent implements OnInit {
       this.local = resp
       this.insertPrincipalImageCard(this.local)
       this.imageUrl = this.storageUrl + '/' + this.local[0].principalImage
-      this.loader = false;
+      setTimeout(() => {
+        this.loader = false;
+      }, 1000)
     }, error => {
-      this.loader = false;
+      setTimeout(() => {
+        this.loader = false;
+      }, 1000)
     })
   }
 
