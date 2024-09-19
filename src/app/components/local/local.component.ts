@@ -36,11 +36,15 @@ export class LocalComponent implements OnInit {
         this.local = resp
         this.insertPrincipalImageCard(this.local)
         this.imageUrl = this.storageUrl + '/' + this.local[0].principalImage
-        this.loader = false;
         let resultArray = this.local.filter((locals: any) => locals.id == id);
         this.openComments(resultArray[0].coments, id)
+        setTimeout(() => {
+          this.loader = false;
+        }, 1000)
       }, error => {
-        this.loader = false;
+        setTimeout(() => {
+          this.loader = false;
+        }, 1000)
       })
     })
     this.getLocalsComplete();

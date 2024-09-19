@@ -23,7 +23,7 @@ export class CreateSkaterComponent implements OnInit {
     name: ''
   };
   hide: boolean = true;
-
+  loader: boolean = false;
 
   ngOnInit(): void {
     let token = sessionStorage.getItem('token')
@@ -37,6 +37,7 @@ export class CreateSkaterComponent implements OnInit {
   }
 
   sendRegistry(): void {
+    this.loader = true;
     if (this.registry.name != '' && this.registry.email != '' && this.registry.password != '') {
       this.loginService.registry(this.registry).subscribe((resp: any) => {
         this.snackMessageService.snackMessage('Registro criado com sucesso!');
