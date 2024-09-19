@@ -70,21 +70,21 @@ export class ProfileComponent implements OnInit {
   getUser(): void {
     this.loader = true;
     this.loginService.me().subscribe((resp: any) => {
+      this.respUser = resp;
+      this.user.name = resp[0].skater[0].name;
+      this.user.fone = resp[0].skater[0].fone;
+      this.user.cpf = resp[0].skater[0].cpf
+      this.user.address_city = resp[0].skater[0].address_city;
+      this.user.address_estate = resp[0].skater[0].address_estate;
+      this.user.urlImage = `${this.urlStore}/${resp[0].skater[0].image_profile[0]?.file_name}`;
+      sessionStorage.setItem('id_skater', resp[0].skater[0].id);
+      if (resp[0].skater[0].image_profile[0]?.file_name != null || resp[0].skater[0].image_profile[0]?.file_name != undefined) {
+        sessionStorage.setItem('urlImageProfile', this.user.urlImage);
+        this.eventService.changeImage();
+      }
+      this.getImageSessionStorage();
       setTimeout(() => {
         this.loader = false;
-        this.respUser = resp;
-        this.user.name = resp[0].skater[0].name;
-        this.user.fone = resp[0].skater[0].fone;
-        this.user.cpf = resp[0].skater[0].cpf
-        this.user.address_city = resp[0].skater[0].address_city;
-        this.user.address_estate = resp[0].skater[0].address_estate;
-        this.user.urlImage = `${this.urlStore}/${resp[0].skater[0].image_profile[0]?.file_name}`;
-        sessionStorage.setItem('id_skater', resp[0].skater[0].id);
-        if (resp[0].skater[0].image_profile[0]?.file_name != null || resp[0].skater[0].image_profile[0]?.file_name != undefined) {
-          sessionStorage.setItem('urlImageProfile', this.user.urlImage);
-          this.eventService.changeImage();
-        }
-        this.getImageSessionStorage();
       }, 1500);
     }, (error) => {
       this.loader = false;
@@ -137,6 +137,7 @@ export class ProfileComponent implements OnInit {
   }
 
   sendChangePassword(): void {
+    this.loader = true;
     if (this.password.pass1 != '' && this.password.pass2 != '') {
       if (this.password.pass1 == this.password.pass2) {
         let payload = {
@@ -145,19 +146,24 @@ export class ProfileComponent implements OnInit {
         this.loginService.changePassword(payload).subscribe((resp: any) => {
           this.snackMessageService.snackMessage('Sucesso!');
           this.changePassword();
+          this.loader = false;
         }, (error) => {
           this.snackMessageService.snackMessage('Erro no servidor, tente novamente mais tarde!');
           this.changePassword();
+          this.loader = false;
         })
       } else {
+        this.loader = false;
         this.snackMessageService.snackMessage('As senhas precisam ser identicas!');
       }
     } else {
+      this.loader = false;
       this.snackMessageService.snackMessage('Os campos precisam ser preenchidos!');
     }
   }
 
   sendUpdateUser(): void {
+    this.loader = true;
     if (this.user.name != '' && this.user.fone != '' && this.user.cpf != '' && this.user.address_city != '' && this.user.address_estate) {
       this.skaterService.updateUser(this.user).subscribe((resp: any) => {
         this.getUser();
@@ -172,10 +178,11 @@ export class ProfileComponent implements OnInit {
   }
 
   logout(): void {
+    this.loader = true;
     this.loginService.logout().subscribe(() => {
       sessionStorage.clear();
       this.eventService.changeImage();
-      this.router.navigate(['/login'])
+      this.router.navigate(['/login']);
     })
   }
 

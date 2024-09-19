@@ -29,7 +29,6 @@ export class CreateProductComponent implements OnInit {
 
   product: any = {
     description: '',
-    active: '',
     brand: '',
     size: '',
     announcement_type: '',
@@ -67,7 +66,9 @@ export class CreateProductComponent implements OnInit {
   }
 
   createProduct(): void {
+    this.loader = true;
     if (this.images.length == 0) {
+      this.loader = false;
       this.snackMessageService.snackMessage('Selecione ao menos uma imagem!');
     } else {
       this.productsService.createProduct(this.product).subscribe((resp: any) => {
@@ -75,10 +76,11 @@ export class CreateProductComponent implements OnInit {
           let formData = new FormData();
           formData.append('file_name', element.url)
           this.productsService.createImageProduct(formData, resp.id).subscribe((resp: any) => {
-            this.snackMessageService.snackMessage(resp.msg);
-            this.router.navigate(['/product']);
           })
         })
+        setTimeout(() => {
+          this.router.navigate(['/product']);
+        }, 2500);
       })
     }
   }

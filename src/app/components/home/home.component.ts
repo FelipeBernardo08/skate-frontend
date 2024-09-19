@@ -35,6 +35,10 @@ export class HomeComponent implements OnInit {
       setTimeout(() => {
         this.loader = false;
       }, 1000)
+    }, (error: any) => {
+      setTimeout(() => {
+        this.loader = false;
+      }, 1000)
     })
   }
 

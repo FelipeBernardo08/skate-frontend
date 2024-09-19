@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
     password: ''
   };
   hide: boolean = true;
+  loader: boolean = false;
 
   ngOnInit(): void {
     let token = sessionStorage.getItem('token')
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
   }
 
   logIn(): void {
+    this.loader = true;
     if (this.login.email != '' && this.login.password != '') {
       this.loginService.login(this.login).subscribe((resp: any) => {
         sessionStorage.setItem('token', resp);

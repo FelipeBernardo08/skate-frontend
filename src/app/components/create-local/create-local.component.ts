@@ -78,7 +78,9 @@ export class CreateLocalComponent implements OnInit {
   }
 
   createLocal(): void {
+    this.loader = true;
     if (this.images.length == 0) {
+      this.loader = false;
       this.snackMessageService.snackMessage('Selecione ao menos uma imagem!');
     } else {
       this.localService.createLocal(this.place).subscribe((resp: any) => {
@@ -86,10 +88,11 @@ export class CreateLocalComponent implements OnInit {
           let formData = new FormData();
           formData.append('file_name', element.url)
           this.localService.createImageLocal(formData, resp.id).subscribe((resp: any) => {
-            this.snackMessageService.snackMessage(resp.msg);
-            this.router.navigate(['/']);
           })
         })
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        }, 2500)
       })
     }
   }
