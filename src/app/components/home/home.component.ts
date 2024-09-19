@@ -109,10 +109,6 @@ export class HomeComponent implements OnInit {
     return haveId;
   }
 
-  changeImage(indexCard: number, indexImage: number, id: string): any {
-    this.products[indexCard].principalImage = this.products[indexCard].image_product[indexImage].file_name;
-  }
-
   sendCallToSkater(fone: string, name: string, product: string): void {
     const mensagem: string = `Olá skatista ${name}. Vim do GhostSkate e tenho interesse em: ${product}`
     const mensagemTratada: string = mensagem.replace(/ /g, '%20');
