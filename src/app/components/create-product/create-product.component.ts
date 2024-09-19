@@ -45,14 +45,14 @@ export class CreateProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTypeProducts();
-    setTimeout(() => {
-      this.loader = !this.loader;
-    }, 1000);
   }
 
   getTypeProducts(): void {
     this.productsService.getTypeProduct().subscribe((resp: any) => {
       this.typeProducts = resp;
+      setTimeout(() => {
+        this.loader = !this.loader;
+      }, 1000);
     })
   }
 

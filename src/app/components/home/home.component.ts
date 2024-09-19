@@ -31,9 +31,10 @@ export class HomeComponent implements OnInit {
   getProductsComplete(): void {
     this.productService.getProducts().subscribe((resp: any) => {
       this.products = resp;
-      console.log(this.products);
       this.insertPrincipalImageCard(resp)
-      this.loader = !this.loader;
+      setTimeout(() => {
+        this.loader = false;
+      }, 1000)
     })
   }
 
@@ -104,23 +105,15 @@ export class HomeComponent implements OnInit {
     return haveId;
   }
 
-  openComments(coments: Array<any>, id: number): void {
-    // coments.sort((a, b) => {
-    //   let indexA = coments.indexOf(a);
-    //   let indexB = coments.indexOf(b);
-    //   return indexB - indexA;
-    // });
-    // this.dialog.open(DialgoCommentsComponent, {
-    //   data: {
-    //     coments: coments,
-    //     id_local: id
-    //   },
-    //   width: '95svw'
-    // })
+  changeImage(indexCard: number, indexImage: number, id: string): any {
+    this.products[indexCard].principalImage = this.products[indexCard].image_product[indexImage].file_name;
   }
 
-
-  changeImage(indexCard: number, indexImage: number, id: string): any {
-    // this.local[indexCard].principalImage = this.local[indexCard].images[indexImage].file_name;
+  sendCallToSkater(fone: string, name: string, product: string): void {
+    const mensagem: string = `Olá skatista ${name}. Vim do GhostSkate e tenho interesse em: ${product}`
+    const mensagemTratada: string = mensagem.replace(/ /g, '%20');
+    const url: string = `https://wa.me/55${fone}`;
+    const urlFinal = `${url}?text=${mensagemTratada}`;
+    window.open(urlFinal, '_blank');
   }
 }
