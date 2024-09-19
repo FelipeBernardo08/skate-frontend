@@ -8,10 +8,10 @@
     <mat-card *ngFor="let item of data.coments" class="mt-2 mat-elevation-z2">
         <div class="row">
             <div class="col-6 p-0">
-                <div mat-card-avatar id="avatar" class="header-image"
+                <div mat-card-avatar id="avatar" class="header-image m-0"
                     [ngStyle]="{'background-image': 'url(' + returnImage(item.skater.image_profile[0].file_name) +')'}">
                 </div>
-                <div class="font-title mt-2">
+                <div class="font-title m-2">
                     {{item.skater.name}}
                 </div>
             </div>

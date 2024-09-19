@@ -24,6 +24,8 @@ import { CreateLocalComponent } from './components/create-local/create-local.com
 import { CreateProductComponent } from './components/create-product/create-product.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialgoCommentsComponent } from './components/dialgo-comments/dialgo-comments.component';
+import { MatSelectModule } from '@angular/material/select';
+import { DialogoCommentsProductComponent } from './components/dialogo-comments-product/dialogo-comments-product.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { DialgoCommentsComponent } from './components/dialgo-comments/dialgo-com
     IncludeComponent,
     CreateLocalComponent,
     CreateProductComponent,
-    DialgoCommentsComponent
+    DialgoCommentsComponent,
+    DialogoCommentsProductComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { DialgoCommentsComponent } from './components/dialgo-comments/dialgo-com
     MatInputModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
