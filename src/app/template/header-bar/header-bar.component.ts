@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventsService } from 'src/app/services/events.service';
-
+import { MatDialog } from '@angular/material/dialog';
+import { DialgoInfoComponent } from 'src/app/components/dialgo-info/dialgo-info.component';
 @Component({
   selector: 'app-header-bar',
   templateUrl: './header-bar.component.html',
@@ -11,7 +12,8 @@ export class HeaderBarComponent implements OnInit {
 
   constructor(
     private eventService: EventsService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog,
   ) { }
 
   imageUrl: string = ''
@@ -34,5 +36,12 @@ export class HeaderBarComponent implements OnInit {
 
   goToProfile(): void {
     this.router.navigate(['/profile'])
+  }
+
+  openInfo(): void {
+    this.dialog.open(DialgoInfoComponent, {
+      width: '90svw',
+      maxHeight: '60svh'
+    });
   }
 }
