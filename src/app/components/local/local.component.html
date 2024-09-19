@@ -9,6 +9,9 @@
 
 <div *ngIf="!loader">
     <div *ngIf="local.length != 0">
+        <div class="text-center creepster-regular">
+            Spots
+        </div>
         <div class="row justify-content-center">
             <div *ngFor="let item of local; let i = index" class="col-lg-6 mt-3">
                 <mat-card class="mat-elevation-z8 p-0">

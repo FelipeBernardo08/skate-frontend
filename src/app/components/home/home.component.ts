@@ -110,7 +110,7 @@ export class HomeComponent implements OnInit {
   }
 
   sendCallToSkater(fone: string, name: string, product: string): void {
-    const mensagem: string = `Olá skatista ${name}. Vim do GhostSkate e tenho interesse em: ${product}`
+    const mensagem: string = `Olá skatista ${name}. Vim do GhostSkate e tenho interesse em seu anúncio: ${product}`
     const mensagemTratada: string = mensagem.replace(/ /g, '%20');
     const url: string = `https://wa.me/55${fone}`;
     const urlFinal = `${url}?text=${mensagemTratada}`;
