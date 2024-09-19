@@ -44,3 +44,7 @@ textarea {
 .likes-coments-font {
     font-size: 70%;
 }
+
+.border-radius {
+    border-radius: 10px;
+}

@@ -37,7 +37,7 @@
                                 <button *ngFor="let img of item.images; let ii = index" type="button"
                                     (click)="changeImage(i, ii, img.file_name)"
                                     data-bs-target="#carouselExampleCaptions" [id]="img.file_name"
-                                    class="active"></button>
+                                    class="active border border-radius"></button>
                             </div>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
