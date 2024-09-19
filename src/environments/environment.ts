@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  BASE_URL: 'http://127.0.0.1:8000/api',
-  BASE_URL_STORAGE: 'http://127.0.0.1:8000/storage'
-  // BASE_URL: 'http://178.16.140.227:8081/api',
-  // BASE_URL_STORAGE: 'http://178.16.140.227:8081/storage'
+  // BASE_URL: 'http://127.0.0.1:8000/api',
+  // BASE_URL_STORAGE: 'http://127.0.0.1:8000/storage'
+  BASE_URL: 'http://178.16.140.227:8081/api',
+  BASE_URL_STORAGE: 'http://178.16.140.227:8081/storage'
 };
 
 /*

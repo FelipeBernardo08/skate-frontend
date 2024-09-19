@@ -71,8 +71,23 @@ export class LocalComponent implements OnInit {
     });
   }
 
-  changeImage(indexCard: number, indexImage: number, id: string): any {
+  changeImage(indexCard: number, indexImage: number, id: string): void {
     this.local[indexCard].principalImage = this.local[indexCard].images[indexImage].file_name;
+  }
+
+  nextImage(index: number): void {
+    let qtdImg: number = this.local[index].images.length;
+    let i: number = 1;
+    if (this.local.length != 1) {
+      if (this.local[index].images[i] <= qtdImg) {
+        this.local[index].principalImage = this.local[index].images[i].file_name
+      }
+    }
+    i++;
+  }
+
+  previousImage(index: number): void {
+
   }
 
   sendLikeLocal(id: any, likes: Array<any>): void {
