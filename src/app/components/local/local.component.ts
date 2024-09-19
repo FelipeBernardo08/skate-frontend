@@ -71,10 +71,6 @@ export class LocalComponent implements OnInit {
     });
   }
 
-  changeImage(indexCard: number, indexImage: number, id: string): any {
-    this.local[indexCard].principalImage = this.local[indexCard].images[indexImage].file_name;
-  }
-
   sendLikeLocal(id: any, likes: Array<any>): void {
     if (sessionStorage.getItem('token') == null) {
       this.snackMessageService.snackMessage('Efetue o login para enviar sua curtida!');
