@@ -47,4 +47,8 @@ export class LocalService {
   public sendCommentToLocal(coment: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/create-comment-local`, coment, { headers: this.getHeaders() });
   }
+
+  public readLocalBySkater(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/read-local-by-skater`, { headers: this.getHeaders() });
+  }
 }

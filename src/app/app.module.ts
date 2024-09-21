@@ -26,6 +26,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialgoCommentsComponent } from './components/dialgo-comments/dialgo-comments.component';
 import { MatSelectModule } from '@angular/material/select';
 import { DialgoInfoComponent } from './components/dialgo-info/dialgo-info.component';
+import { UpdateSpotsComponent } from './components/update-spots/update-spots.component';
+import { UpdateProductsComponent } from './components/update-products/update-products.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { DialgoInfoComponent } from './components/dialgo-info/dialgo-info.compon
     CreateLocalComponent,
     CreateProductComponent,
     DialgoCommentsComponent,
-    DialgoInfoComponent
+    DialgoInfoComponent,
+    UpdateSpotsComponent,
+    UpdateProductsComponent
   ],
   imports: [
     BrowserModule,
