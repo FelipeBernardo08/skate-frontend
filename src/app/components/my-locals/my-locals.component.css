@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+.creepster-regular {
+    font-family: "Creepster", system-ui;
+    font-style: normal;
+    font-size: 20px;
+}
+
+textarea {
+    font-size: 80%;
+    border: none;
+    background-color: none;
+    background: none;
+    color: black;
+    resize: none;
+}

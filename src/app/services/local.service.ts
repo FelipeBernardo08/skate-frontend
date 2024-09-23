@@ -51,4 +51,7 @@ export class LocalService {
   public readLocalBySkater(): Observable<any> {
     return this.http.get(`${this.baseUrl}/read-local-by-skater`, { headers: this.getHeaders() });
   }
+  public readLocalBySkaterId(id: any): Observable<any> {
+    return this.http.get(`${this.baseUrl}/read-local-by-skater/${id}`, { headers: this.getHeaders() });
+  }
 }

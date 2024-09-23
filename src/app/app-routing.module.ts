@@ -10,6 +10,7 @@ import { CreateLocalComponent } from './components/create-local/create-local.com
 import { CreateProductComponent } from './components/create-product/create-product.component';
 import { UpdateSpotsComponent } from './components/update-spots/update-spots.component';
 import { UpdateProductsComponent } from './components/update-products/update-products.component';
+import { MyLocalsComponent } from './components/my-locals/my-locals.component';
 
 const routes: Routes = [
   {
@@ -45,12 +46,12 @@ const routes: Routes = [
     component: CreateProductComponent
   },
   {
-    path: 'update-spots',
-    component: UpdateSpotsComponent
+    path: 'read-my-spots',
+    component: MyLocalsComponent
   },
   {
-    path: 'update-products',
-    component: UpdateProductsComponent
+    path: 'update-spots/:id',
+    component: UpdateSpotsComponent
   }
 ];
 

@@ -28,6 +28,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { DialgoInfoComponent } from './components/dialgo-info/dialgo-info.component';
 import { UpdateSpotsComponent } from './components/update-spots/update-spots.component';
 import { UpdateProductsComponent } from './components/update-products/update-products.component';
+import { MyLocalsComponent } from './components/my-locals/my-locals.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { UpdateProductsComponent } from './components/update-products/update-pro
     DialgoCommentsComponent,
     DialgoInfoComponent,
     UpdateSpotsComponent,
-    UpdateProductsComponent
+    UpdateProductsComponent,
+    MyLocalsComponent
   ],
   imports: [
     BrowserModule,

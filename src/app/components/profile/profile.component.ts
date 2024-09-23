@@ -202,6 +202,6 @@ export class ProfileComponent implements OnInit {
   }
 
   openMySpots(): void {
-    this.router.navigate(['/update-spots']);
+    this.router.navigate(['/read-my-spots']);
   }
 }

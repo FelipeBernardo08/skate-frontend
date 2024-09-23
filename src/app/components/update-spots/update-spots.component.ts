@@ -12,39 +12,26 @@ import { environment } from 'src/environments/environment';
 export class UpdateSpotsComponent implements OnInit {
 
   constructor(
-    private router: Router,
-    private snackMessageService: SnackMessageService,
     private localService: LocalService
   ) { }
 
-  local: Array<any> = [];
-
-  localUpdatePayload: any;
-
   loader: boolean = true;
-
+  local: Array<any> = [];
   storageUrl: string = environment.BASE_URL_STORAGE;
 
-
   ngOnInit(): void {
-    if (!this.checkToken()) {
-      this.snackMessageService.snackMessage('Efetue o login primeiro!');
-      this.router.navigate(['/login'])
-    } else {
-      this.getLocalBySkater()
-    }
-  }
-
-  checkToken(): boolean {
-    return sessionStorage.getItem('token') != null;
-  }
-
-  getLocalBySkater(): void {
-    this.localService.readLocalBySkater().subscribe((resp: any) => {
+    this.localService.readLocalBySkaterId(this.getIdUrl()).subscribe((resp: any) => {
       this.local = resp;
-      console.log(this.local)
-      this.loader = false;
+      setTimeout(() => {
+        this.loader = false;
+      }, 1000)
     })
+  }
+
+  getIdUrl(): string {
+    let url: string = window.location.href;
+    let lastSlash: number = url.lastIndexOf('/');
+    return url.substring(lastSlash + 1);
   }
 
   countRows(coment: string): number {
@@ -54,9 +41,4 @@ export class UpdateSpotsComponent implements OnInit {
     }
     return 5;
   }
-
-  openUpdateLocal(id: number): void {
-
-  }
-
 }
