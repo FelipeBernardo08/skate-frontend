@@ -11,64 +11,71 @@
     <div class="text-center creepster-regular">
         Pistas e Picos
     </div>
-    <div class="row justify-content-center">
-        <div *ngFor="let item of local; let i = index" class="col-lg-6 mt-3">
-            <mat-card class="mat-elevation-z8 p-0">
-                <div class="w-100">
-                    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div *ngFor="let img of item.images; let i = index"
-                                [class]="i == 0 ? 'carousel-item active': 'carousel-item'">
-                                <img [src]="storageUrl + '/' + img.file_name" class="d-block w-100" alt="...">
+    <div *ngIf="local.length != 0">
+        <div class="row justify-content-center">
+            <div *ngFor="let item of local; let i = index" class="col-lg-6 mt-3">
+                <mat-card class="mat-elevation-z8 p-0">
+                    <div class="w-100">
+                        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div *ngFor="let img of item.images; let i = index"
+                                    [class]="i == 0 ? 'carousel-item active': 'carousel-item'">
+                                    <img [src]="storageUrl + '/' + img.file_name" class="d-block w-100" alt="...">
+                                </div>
                             </div>
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-                            data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="p-3">
-                    <div class="d-flex justify-content-center title-center ">
-                        <i class="material-icons margin-icon">flag</i> {{item.title}}
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-8">
-                            <span class="title-center">
-                                <i class="material-icons margin-icon">pin_drop</i> {{item.address_street}},
-                                {{item.address_number}}
-                                -
-                                {{item.address_city}}/{{item.address_estate}}
-                            </span>
-                        </div>
-                        <div class="col-4">
-                            <span class=" title-center">
-                                <i class="material-icons margin-icon">skateboarding</i> {{item.access ?
-                                'Público':'Privado' }}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <textarea disabled [value]="item.description" [rows]="countRows(item.description)"
-                                class="w-100"></textarea>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-12">
-                            <button class="btn btn-sm btn-primary w-100" (click)="openUpdateLocal(item.id)">
-                                Editar
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
                             </button>
                         </div>
                     </div>
-                </div>
-            </mat-card>
+                    <div class="p-3">
+                        <div class="d-flex justify-content-center title-center ">
+                            <i class="material-icons margin-icon">flag</i> {{item.title}}
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-8">
+                                <span class="title-center">
+                                    <i class="material-icons margin-icon">pin_drop</i> {{item.address_street}},
+                                    {{item.address_number}}
+                                    -
+                                    {{item.address_city}}/{{item.address_estate}}
+                                </span>
+                            </div>
+                            <div class="col-4">
+                                <span class=" title-center">
+                                    <i class="material-icons margin-icon">skateboarding</i> {{item.access ?
+                                    'Público':'Privado' }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <textarea disabled [value]="item.description" [rows]="countRows(item.description)"
+                                    class="w-100"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <button class="btn btn-sm btn-primary w-100" (click)="openUpdateLocal(item.id)">
+                                    Editar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="local.length == 0">
+        <div class="mt-3 text-center">
+            Não existem registros no momento!
         </div>
     </div>
 </div>

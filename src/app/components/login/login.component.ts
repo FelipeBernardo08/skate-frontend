@@ -44,8 +44,10 @@ export class LoginComponent implements OnInit {
       }, (error) => {
         if (error.status == 404) {
           this.snackMessageService.snackMessage('Credenciais incorretas ou não existem.')
+          this.loader = false;
         } else if (error.status == 0) {
           this.snackMessageService.snackMessage('Erro de conexão, tente novamente mais tarde!');
+          this.loader = false;
         }
       })
     }

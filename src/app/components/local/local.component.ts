@@ -67,7 +67,9 @@ export class LocalComponent implements OnInit {
 
   insertPrincipalImageCard(locals: any): void {
     locals.forEach((element: any, i: any) => {
-      this.local[i].principalImage = element.images[0].file_name;
+      if (element.images && element.images.length != 0) {
+        this.local[i].principalImage = element.images[0].file_name;
+      }
     });
   }
 

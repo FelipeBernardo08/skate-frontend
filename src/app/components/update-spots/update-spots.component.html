@@ -75,13 +75,27 @@
                 </div>
             </form>
             <div class="row">
-                <div class="col-12 text-center">
+                <div class="col-12 text-center creepster-regular">
                     Fotos
+                </div>
+                <div class="text-center font-small">
+                    Máximo 5 imagens.
                 </div>
                 <div *ngFor="let img of item.images" class="col-md-6 mt-3">
                     <div class="d-flex justify-content-center">
                         <img [src]="storageUrl + '/'+ img.file_name" class="img-fluid">
                     </div>
+                    <div class="d-flex justify-content-center mt-2">
+                        <button (click)="deleteImage(img.id)" class="btn btn-sm btn-danger">
+                            <i class="material-icons text-light">delete</i>
+                        </button>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <button type="button" (click)="triggerImage()" class="btn btn-success btn-sm text-ligh w-25">
+                        +
+                    </button>
+                    <input accept="image/*" #fileInput (change)="selectImage($event)" hidden type="file">
                 </div>
             </div>
         </mat-card>

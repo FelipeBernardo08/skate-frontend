@@ -44,7 +44,6 @@ export class MyLocalsComponent implements OnInit {
       this.local = resp;
       this.loader = false;
     }, (error: any) => {
-      this.snackMessageService.snackMessage('Erro, tente novamente mais tarde!');
       this.loader = false;
     })
   }

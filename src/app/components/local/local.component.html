@@ -16,7 +16,6 @@
             <div *ngFor="let item of local; let i = index" class="col-lg-6 mt-3">
                 <mat-card class="mat-elevation-z8 p-0">
                     <div class="row w-100 p-3">
-
                         <div class="col-2">
                             <div class="d-flex justify-content-center">
                                 <div mat-card-avatar id="avatar" class="header-image"
@@ -24,7 +23,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-10">
                             <div>
                                 {{item.skater.name}}
@@ -34,7 +32,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-100">
+                    <div *ngIf="item.images && item.images.length != 0" class="w-100">
                         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div *ngFor="let img of item.images; let i = index"

@@ -54,4 +54,8 @@ export class LocalService {
   public readLocalBySkaterId(id: any): Observable<any> {
     return this.http.get(`${this.baseUrl}/read-local-by-skater/${id}`, { headers: this.getHeaders() });
   }
+
+  public deleteImageLocal(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/delete-image-local/${id}`, { headers: this.getHeaders() });
+  }
 }
