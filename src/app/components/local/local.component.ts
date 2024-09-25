@@ -67,7 +67,9 @@ export class LocalComponent implements OnInit {
 
   insertPrincipalImageCard(locals: any): void {
     locals.forEach((element: any, i: any) => {
-      this.local[i].principalImage = element.images[0].file_name;
+      if (element.images && element.images.length != 0) {
+        this.local[i].principalImage = element.images[0].file_name;
+      }
     });
   }
 
@@ -126,7 +128,7 @@ export class LocalComponent implements OnInit {
   calculateRows(text: string): number {
     let result = text.split('\n');
     if (result.length + 3 < 7) {
-      return result.length + 3;
+      return result.length;
     }
     return 7;
   }
