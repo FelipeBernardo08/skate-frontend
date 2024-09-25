@@ -47,4 +47,19 @@ export class LocalService {
   public sendCommentToLocal(coment: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/create-comment-local`, coment, { headers: this.getHeaders() });
   }
+
+  public readLocalBySkater(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/read-local-by-skater`, { headers: this.getHeaders() });
+  }
+  public readLocalBySkaterId(id: any): Observable<any> {
+    return this.http.get(`${this.baseUrl}/read-local-by-skater/${id}`, { headers: this.getHeaders() });
+  }
+
+  public deleteImageLocal(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/delete-image-local/${id}`, { headers: this.getHeaders() });
+  }
+
+  public updateLocal(id: string, local: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/update-local/${id}`, local, { headers: this.getHeaders() });
+  }
 }

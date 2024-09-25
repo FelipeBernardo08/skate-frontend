@@ -8,6 +8,9 @@ import { CreateSkaterComponent } from './components/create-skater/create-skater.
 import { LoginComponent } from './components/login/login.component';
 import { CreateLocalComponent } from './components/create-local/create-local.component';
 import { CreateProductComponent } from './components/create-product/create-product.component';
+import { UpdateSpotsComponent } from './components/update-spots/update-spots.component';
+import { UpdateProductsComponent } from './components/update-products/update-products.component';
+import { MyLocalsComponent } from './components/my-locals/my-locals.component';
 
 const routes: Routes = [
   {
@@ -41,6 +44,14 @@ const routes: Routes = [
   {
     path: 'create-product',
     component: CreateProductComponent
+  },
+  {
+    path: 'read-my-spots',
+    component: MyLocalsComponent
+  },
+  {
+    path: 'update-spots/:id',
+    component: UpdateSpotsComponent
   }
 ];
 

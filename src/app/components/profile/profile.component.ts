@@ -196,4 +196,12 @@ export class ProfileComponent implements OnInit {
       this.editProfile();
     })
   }
+
+  openMyProducts(): void {
+    this.router.navigate(['/update-products']);
+  }
+
+  openMySpots(): void {
+    this.router.navigate(['/read-my-spots']);
+  }
 }
