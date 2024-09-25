@@ -20,6 +20,7 @@ export class UpdateSpotsComponent implements OnInit {
     private localService: LocalService,
     private sanitizer: DomSanitizer,
     private snackMessageService: SnackMessageService,
+    private router: Router
   ) { }
 
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -67,7 +68,7 @@ export class UpdateSpotsComponent implements OnInit {
         caminho: this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file)),
         url: file
       }
-      if (this.images.length < 5) {
+      if ((this.local[0].images.length + this.images.length) < 5) {
         this.images.push(image)
       } else {
         this.snackMessageService.snackMessage('Máxima quantidade de imagens alcançada.')
@@ -81,5 +82,30 @@ export class UpdateSpotsComponent implements OnInit {
       this.snackMessageService.snackMessage('Imagem excluida com sucesso!');
       this.getLocals();
     })
+  }
+
+  removeImage(image: any): void {
+    this.images = this.images.filter((img: any) => {
+      return img.url !== image;
+    });
+  }
+
+  saveUpdateLocal(): void {
+    this.localService.updateLocal(this.getIdUrl(), this.local[0]).subscribe((resp: any) => {
+
+    })
+    if (this.images.length != 0) {
+      this.images.forEach((element: any) => {
+        let formData = new FormData();
+        formData.append('file_name', element.url)
+        this.localService.createImageLocal(formData, this.getIdUrl()).subscribe((resp: any) => {
+        })
+      })
+    }
+    this.snackMessageService.snackMessage('Registro atualizado com sucesso!');
+  }
+
+  cancelUpdateLocal(): void {
+    this.router.navigate(['/read-my-spots']);
   }
 }
