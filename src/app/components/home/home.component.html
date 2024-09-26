@@ -87,13 +87,19 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="likes-coments-font">
-                                Entre em contato:
+                            <div class="col-6 mt-1">
+                                <button [disabled]="buttonLikeDisabled" (click)="sendLikeProduct(item.id, item.likes)"
+                                    [class]="checkLikes(item.likes) ? 'btn btn-sm btn-outline-primary w-100 text-center selected' : 'btn btn-sm btn-outline-primary w-100 text-center' ">
+                                    <i class="material-icons mt-2">favorite</i>
+                                </button>
+                                <div *ngIf="item.likes.length != 0" class="text-center mt-2 likes-coments-font">
+                                    {{item.likes.length}} {{item.likes.length == 1 ? 'Curtida' : 'Curtidas' }}
+                                </div>
                             </div>
-                            <div class="col-12 mt-1">
+                            <div class="col-6 mt-1">
                                 <button
                                     (click)="sendCallToSkater(item.skater.fone, item.skater.name, item.sub_type.name + ' ' + item.brand)"
-                                    class="btn btn-sm btn-success w-100">
+                                    class="btn btn-sm btn-outline-success w-100">
                                     <i class="material-icons margin-icon mt-2">call</i>
                                 </button>
                             </div>

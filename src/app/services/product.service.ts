@@ -46,10 +46,10 @@ export class ProductService {
   }
 
   public sendLike(like: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/`, like, { headers: this.getHeaders() });
+    return this.http.post(`${this.baseUrl}/create-like-product`, like, { headers: this.getHeaders() });
   }
 
   public removeLike(id: any): Observable<any> {
-    return this.http.delete(`${this.baseUrl}//${id}`, { headers: this.getHeaders() });
+    return this.http.delete(`${this.baseUrl}/remove-like-product/${id}`, { headers: this.getHeaders() });
   }
 }
