@@ -3,7 +3,6 @@ import { ProductService } from 'src/app/services/product.service';
 import { SnackMessageService } from 'src/app/services/snack-message.service';
 import { environment } from 'src/environments/environment';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -61,26 +60,28 @@ export class HomeComponent implements OnInit {
 
   calculateRows(text: string): number {
     let result = text.split('\n');
-    if (result.length + 3 < 7) {
-      return result.length + 1;
+    if (result.length < 7) {
+      return result.length;
     }
     return 7;
   }
 
   insertPrincipalImageCard(products: any): void {
     products.forEach((element: any, i: any) => {
-      this.products[i].principalImage = element.image_product[0].file_name;
+      if (element.image_product.length != 0) {
+        this.products[i].principalImage = element.image_product[0].file_name;
+      }
     });
   }
 
-  sendLikeLocal(id: any, likes: Array<any>): void {
+  sendLikeProduct(id: any, likes: Array<any>): void {
     if (sessionStorage.getItem('token') == null) {
       this.snackMessageService.snackMessage('Efetue o login para enviar sua curtida!');
     }
     if (!this.checkLikes(likes)) {
       this.buttonLikeDisabled = true;
       let payload = {
-        id_local: id
+        id_product: id
       }
       this.productService.sendLike(payload).subscribe((resp: any) => {
         this.buttonLikeDisabled = false;

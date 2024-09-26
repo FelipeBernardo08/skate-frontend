@@ -15,32 +15,8 @@
         <div class="row justify-content-center">
             <div *ngFor="let item of products; let i = index" class="col-lg-6 mt-3">
                 <mat-card class="mat-elevation-z8 p-0">
-
-                    <div class="row w-100 p-3">
-                        <div class="col-2">
-                            <div class="d-flex justify-content-center">
-                                <div *ngIf="item.skater.image_profile.length != 0" mat-card-avatar id="avatar"
-                                    class="header-image"
-                                    [ngStyle]="{'background-image': 'url(' + getImageSkaterProfile(item.skater.image_profile[0].file_name) + ')'}">
-                                </div>
-                                <div *ngIf="item.skater.image_profile.length == 0" mat-card-avatar id="avatar"
-                                    class="header-image" [ngStyle]="{'background-image': 'url(' + imageDefault + ')'}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-10">
-                            <div>
-                                {{item.skater.name}}
-                            </div>
-                            <div>
-                                {{convertTime(item.created_at)}}
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="w-100">
-                        <div *ngIf="item.image_product.length != 0" id="carouselExampleAutoplaying"
-                            class="carousel slide" data-bs-ride="carousel">
+                        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div *ngFor="let img of item.image_product; let i = index"
                                     [class]="i == 0 ? 'carousel-item active': 'carousel-item'">
@@ -87,22 +63,10 @@
                                     class="w-100"></textarea>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-6 mt-1">
-                                <button [disabled]="buttonLikeDisabled" (click)="sendLikeProduct(item.id, item.likes)"
-                                    [class]="checkLikes(item.likes) ? 'btn btn-sm btn-outline-primary w-100 text-center selected' : 'btn btn-sm btn-outline-primary w-100 text-center' ">
-                                    <i class="material-icons mt-2">favorite</i>
-                                </button>
-                                <div *ngIf="item.likes.length != 0" class="text-center mt-2 likes-coments-font">
-                                    {{item.likes.length}} {{item.likes.length == 1 ? 'Curtida' : 'Curtidas' }}
-                                </div>
-                            </div>
-                            <div class="col-6 mt-1">
-                                <button
-                                    (click)="sendCallToSkater(item.skater.fone, item.skater.name, item.sub_type.name + ' ' + item.brand)"
-                                    class="btn btn-sm btn-success w-100">
-                                    <i class="material-icons margin-icon mt-2">call</i>
-                                </button>
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                <button (click)="openUpdateProduct(item.id)"
+                                    class="btn btn-sm btn-primary w-100">Editar</button>
                             </div>
                         </div>
                     </div>
@@ -110,7 +74,6 @@
             </div>
         </div>
     </div>
-
     <div *ngIf="products.length == 0">
         <div class="mt-3 text-center">
             <p>

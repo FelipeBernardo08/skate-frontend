@@ -127,7 +127,7 @@ export class LocalComponent implements OnInit {
 
   calculateRows(text: string): number {
     let result = text.split('\n');
-    if (result.length + 3 < 7) {
+    if (result.length < 7) {
       return result.length;
     }
     return 7;

@@ -11,6 +11,7 @@ import { CreateProductComponent } from './components/create-product/create-produ
 import { UpdateSpotsComponent } from './components/update-spots/update-spots.component';
 import { UpdateProductsComponent } from './components/update-products/update-products.component';
 import { MyLocalsComponent } from './components/my-locals/my-locals.component';
+import { MyProductsComponent } from './components/my-products/my-products.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,14 @@ const routes: Routes = [
   {
     path: 'update-spots/:id',
     component: UpdateSpotsComponent
+  },
+  {
+    path: 'read-my-products',
+    component: MyProductsComponent
+  },
+  {
+    path: 'update-products/:id',
+    component: UpdateProductsComponent
   }
 ];
 
