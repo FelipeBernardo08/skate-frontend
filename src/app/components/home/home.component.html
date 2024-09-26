@@ -19,8 +19,12 @@
                     <div class="row w-100 p-3">
                         <div class="col-2">
                             <div class="d-flex justify-content-center">
-                                <div mat-card-avatar id="avatar" class="header-image"
+                                <div *ngIf="item.skater.image_profile.length != 0" mat-card-avatar id="avatar"
+                                    class="header-image"
                                     [ngStyle]="{'background-image': 'url(' + getImageSkaterProfile(item.skater.image_profile[0].file_name) + ')'}">
+                                </div>
+                                <div *ngIf="item.skater.image_profile.length == 0" mat-card-avatar id="avatar"
+                                    class="header-image" [ngStyle]="{'background-image': 'url(' + imageDefault + ')'}">
                                 </div>
                             </div>
                         </div>
