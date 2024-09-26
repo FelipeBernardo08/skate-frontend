@@ -45,10 +45,8 @@ export class UpdateProductsComponent implements OnInit {
   getProductId(): void {
     this.productService.readProductId(this.getIdUrl()).subscribe((resp: any) => {
       this.product = resp;
-      console.log(this.product)
       this.getTypeProducts();
       this.getSubType(this.product[0].type.name);
-      console.log(resp);
     }, error => {
       this.loader = false;
     })
@@ -58,7 +56,7 @@ export class UpdateProductsComponent implements OnInit {
     this.productService.getTypeProduct().subscribe((resp: any) => {
       this.typeProducts = resp;
       setTimeout(() => {
-        this.loader = !this.loader;
+        this.loader = false;
       }, 1000);
     })
   }
@@ -121,11 +119,11 @@ export class UpdateProductsComponent implements OnInit {
         this.snackMessageService.snackMessage('Registro ativado com sucesso!');
       })
     }
+    this.getProductId();
   }
 
   saveUpdateProduct(): void {
     this.productService.updateProduct(this.getIdUrl(), this.product[0]).subscribe((resp: any) => {
-      console.log(resp);
     })
     if (this.images.length != 0) {
       this.images.forEach((element: any) => {

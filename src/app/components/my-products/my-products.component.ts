@@ -34,7 +34,6 @@ export class MyProductsComponent implements OnInit {
     this.productsService.readOwnProducts().subscribe((resp: any) => {
       this.products = resp;
       this.loader = false;
-      console.log(this.products);
     })
   }
 

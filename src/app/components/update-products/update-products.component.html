@@ -106,13 +106,14 @@
             </div>
             <div class="row mt-2">
                 <div class="col-6">
-                    <button (click)="setProductDisabled(item.id)" class="btn btn-sm btn-outline-danger w-50">
+                    <button (click)="setProductDisabled(item.id)"
+                        [class]="item.active ? 'btn btn-sm btn-danger w-50': 'btn btn-sm btn-primary w-50'">
                         {{item.active ? 'Desativar' : 'Ativar'}}
                     </button>
                 </div>
                 <div class="col-6">
                     <div class="d-flex justify-content-end">
-                        <button (click)="saveUpdateProduct()" class="btn btn-outline-primary btn-sm w-50">
+                        <button (click)="saveUpdateProduct()" class="btn btn-primary btn-sm w-50">
                             Salvar
                         </button>
                     </div>
