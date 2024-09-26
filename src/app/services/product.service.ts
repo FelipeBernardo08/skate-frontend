@@ -52,4 +52,28 @@ export class ProductService {
   public removeLike(id: any): Observable<any> {
     return this.http.delete(`${this.baseUrl}/remove-like-product/${id}`, { headers: this.getHeaders() });
   }
+
+  public readOwnProducts(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/read-own-products`, { headers: this.getHeaders() });
+  }
+
+  public readProductId(id: any): Observable<any> {
+    return this.http.get(`${this.baseUrl}/read-product/${id}`, { headers: this.getHeaders() });
+  }
+
+  public deleteImageProduct(id: any): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/delete-image-product/${id}`, { headers: this.getHeaders() });
+  }
+
+  public disableProduct(id: any): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/desactive-product/${id}`, '', { headers: this.getHeaders() });
+  }
+
+  public enableProduct(id: any): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/active-product/${id}`, '', { headers: this.getHeaders() });
+  }
+
+  public updateProduct(id: any, product: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/update-product/${id}`, product, { headers: this.getHeaders() });
+  }
 }

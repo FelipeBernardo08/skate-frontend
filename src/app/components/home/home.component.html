@@ -39,7 +39,8 @@
                     </div>
 
                     <div class="w-100">
-                        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                        <div *ngIf="item.image_product.length != 0" id="carouselExampleAutoplaying"
+                            class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div *ngFor="let img of item.image_product; let i = index"
                                     [class]="i == 0 ? 'carousel-item active': 'carousel-item'">
@@ -99,7 +100,7 @@
                             <div class="col-6 mt-1">
                                 <button
                                     (click)="sendCallToSkater(item.skater.fone, item.skater.name, item.sub_type.name + ' ' + item.brand)"
-                                    class="btn btn-sm btn-outline-success w-100">
+                                    class="btn btn-sm btn-success w-100">
                                     <i class="material-icons margin-icon mt-2">call</i>
                                 </button>
                             </div>

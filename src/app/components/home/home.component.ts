@@ -3,7 +3,6 @@ import { ProductService } from 'src/app/services/product.service';
 import { SnackMessageService } from 'src/app/services/snack-message.service';
 import { environment } from 'src/environments/environment';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -69,7 +68,9 @@ export class HomeComponent implements OnInit {
 
   insertPrincipalImageCard(products: any): void {
     products.forEach((element: any, i: any) => {
-      this.products[i].principalImage = element.image_product[0].file_name;
+      if (element.image_product.length != 0) {
+        this.products[i].principalImage = element.image_product[0].file_name;
+      }
     });
   }
 

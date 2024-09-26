@@ -13,7 +13,7 @@
         Atualizar Pistas e Picos
     </div>
     <div *ngIf="local.length != 0">
-        <mat-card *ngFor="let item of local; let i = index" class="mat-elevation-z4 mt-3">
+        <mat-card *ngFor="let item of local; let i = index" class="mat-elevation-z5 mt-3">
             <form>
                 <div class="row">
                     <div class="col-12">
@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </form>
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-12 text-center creepster-regular">
                     Fotos
                 </div>
@@ -114,13 +114,13 @@
             </div>
             <div class="row mt-3">
                 <div class="col-6">
-                    <button (click)="cancelUpdateLocal()" class="btn btn-sm btn-danger w-50">
+                    <button (click)="cancelUpdateLocal()" class="btn btn-sm btn-outline-danger w-50">
                         Cancelar
                     </button>
                 </div>
                 <div class="col-6">
                     <div class="d-flex justify-content-end">
-                        <button (click)="saveUpdateLocal()" class="btn btn-sm btn-primary w-50">
+                        <button (click)="saveUpdateLocal()" class="btn btn-sm btn-outline-primary w-50">
                             Salvar
                         </button>
                     </div>

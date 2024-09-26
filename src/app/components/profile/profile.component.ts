@@ -198,7 +198,7 @@ export class ProfileComponent implements OnInit {
   }
 
   openMyProducts(): void {
-    this.router.navigate(['/update-products']);
+    this.router.navigate(['/read-my-products']);
   }
 
   openMySpots(): void {

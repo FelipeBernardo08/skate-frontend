@@ -1,1 +1,128 @@
-<p>update-products works!</p>
+<div *ngIf="loader">
+    <div class="d-flex justify-content-center mt-3">
+        <img class="img-fluid" src="../../../assets/3ohze2IqF09aevkCVa.webp" alt="">
+    </div>
+    <div class="text-center creepster-regular">
+        Carregando...
+    </div>
+</div>
+
+<div *ngIf="!loader">
+    <div *ngIf="product.length != 0">
+        <mat-card *ngFor="let item of product; let i = index" class="mat-elevation-z5 mt-3">
+            <form>
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field appearance="fill" class="w-100 mt-2">
+                            <mat-label>Tipo anúncio</mat-label>
+                            <mat-select [(ngModel)]="item.announcement_type" name="announcement_type" required>
+                                <mat-option value="Troca">Troca</mat-option>
+                                <mat-option value="Doação">Doação</mat-option>
+                            </mat-select>
+                            <mat-error>O campo tipo do anúncio é obrigatório</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field appearance="fill" class="w-100 mt-2">
+                            <mat-label>Tipo Equipamento</mat-label>
+                            <mat-select [(ngModel)]="item.fk_type_product" name="fk_type_product" required>
+                                <mat-option (click)="getSubType(type.name)" *ngFor="let type of typeProducts"
+                                    [value]="type.id">{{type.name}}</mat-option>
+                            </mat-select>
+                            <mat-error>O campo tipo equipamento é obrigatório</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field appearance="fill" class="w-100 mt-2">
+                            <mat-label>Subtipo Equipamento</mat-label>
+                            <mat-select [(ngModel)]="item.fk_subtype_product" name="fk_subtype_product" required
+                                [disabled]="item.fk_type_product == ''">
+                                <mat-option *ngFor="let item of subtype" [value]="item.id">{{item.name}}</mat-option>
+                            </mat-select>
+                            <mat-error>O campo sub-tipo equipamento é obrigatório</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field appearance="fill" class="w-100 mt-2">
+                            <mat-label>Marca</mat-label>
+                            <input matInput placeholder="Digite a marca" [(ngModel)]="item.brand" name="brand" required>
+                            <mat-error>O campo marca é obrigatório</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                        <mat-form-field appearance="fill" class="w-100 mt-2">
+                            <mat-label>Tamanho</mat-label>
+                            <input matInput placeholder="Digite o tamanho" [(ngModel)]="item.size" name="size" required>
+                            <mat-error>O campo tamanho é obrigatório</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12">
+                        <mat-form-field appearance="fill" class="w-100 mt-2">
+                            <mat-label>Descrição</mat-label>
+                            <textarea matInput [(ngModel)]="item.description" placeholder="Opcional" name="description"
+                                rows="5"></textarea>
+                            <mat-error>O campo estado é obrigatório</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+            <div class="row">
+                <div class="col-12 text-center creepster-regular">
+                    Fotos
+                </div>
+                <div class="text-center font-small">
+                    Máximo 5 imagens.
+                </div>
+
+                <div *ngFor="let img of item.image_product" class="col-md-6 mt-3">
+                    <div class="d-flex justify-content-center">
+                        <img [src]="storageUrl + '/'+ img.file_name" class="img-fluid">
+                    </div>
+                    <div class="d-flex justify-content-center mt-2">
+                        <button (click)="deleteImage(img.id)" class="btn btn-sm btn-danger">
+                            <i class="material-icons text-light">delete</i>
+                        </button>
+                    </div>
+                </div>
+
+                <div *ngIf="images.length != 0 " class="row justify-content-center">
+                    <div *ngFor="let item of images" class="col-md-4 mt-3">
+                        <img [src]="item.caminho" class="img-fluid border-radius">
+                        <div class="d-flex justify-content-center">
+                            <button type="button" (click)="removeImage(item.url)" class="btn btn-sm btn-danger mt-2">
+                                <i class="material-icons text-light">delete</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt-3">
+                    <button type="button" (click)="triggerImage()" class="btn btn-success btn-sm text-ligh w-25">
+                        +
+                    </button>
+                    <input accept="image/*" #fileInput (change)="selectImage($event)" hidden type="file">
+                </div>
+
+            </div>
+            <div class="row mt-2">
+                <div class="col-6">
+                    <button (click)="setProductDisabled(item.id)" class="btn btn-sm btn-outline-danger w-50">
+                        {{item.active ? 'Desativar' : 'Ativar'}}
+                    </button>
+                </div>
+                <div class="col-6">
+                    <div class="d-flex justify-content-end">
+                        <button (click)="saveUpdateProduct()" class="btn btn-outline-primary btn-sm w-50">
+                            Salvar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+    <div *ngIf="product.length == 0" class="text-center mt-3 font-small">
+        <p>
+            Registros não encontrados
+        </p>
+    </div>
+</div>
