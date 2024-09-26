@@ -31,7 +31,12 @@ export class UpdateSpotsComponent implements OnInit {
   images: Array<any> = [];
 
   ngOnInit(): void {
-    this.getLocals();
+    if (!this.checkToken()) {
+      this.snackMessageService.snackMessage('Efetue o login primeiro!');
+      this.router.navigate(['/login'])
+    } else {
+      this.getLocals();
+    }
   }
 
   getLocals(): void {
@@ -107,5 +112,9 @@ export class UpdateSpotsComponent implements OnInit {
 
   cancelUpdateLocal(): void {
     this.router.navigate(['/read-my-spots']);
+  }
+
+  checkToken(): boolean {
+    return sessionStorage.getItem('token') != null;
   }
 }

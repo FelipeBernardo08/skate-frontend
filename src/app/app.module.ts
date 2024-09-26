@@ -29,6 +29,7 @@ import { DialgoInfoComponent } from './components/dialgo-info/dialgo-info.compon
 import { UpdateSpotsComponent } from './components/update-spots/update-spots.component';
 import { UpdateProductsComponent } from './components/update-products/update-products.component';
 import { MyLocalsComponent } from './components/my-locals/my-locals.component';
+import { MyProductsComponent } from './components/my-products/my-products.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { MyLocalsComponent } from './components/my-locals/my-locals.component';
     DialgoInfoComponent,
     UpdateSpotsComponent,
     UpdateProductsComponent,
-    MyLocalsComponent
+    MyLocalsComponent,
+    MyProductsComponent
   ],
   imports: [
     BrowserModule,
