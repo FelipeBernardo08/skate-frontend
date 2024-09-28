@@ -26,39 +26,55 @@ export class LocalComponent implements OnInit {
 
   buttonLikeDisabled: boolean = false;
 
+  localDefault: Array<any> = [];
+
   local: Array<any> = [];
 
   storageUrl: string = environment.BASE_URL_STORAGE;
 
   imageUrl: string = '';
 
+  cities: Array<any> = [];
+
   ngOnInit(): void {
     sessionStorage.setItem('page', 'local');
     this.eventChangePageService.changePage();
     this.eventCommentService.eventEmitter.subscribe((id: any) => {
-      this.localService.readLocals().subscribe((resp: any) => {
-        this.local = resp
-        this.insertPrincipalImageCard(this.local)
-        this.imageUrl = this.storageUrl + '/' + this.local[0].principalImage
-        let resultArray = this.local.filter((locals: any) => locals.id == id);
-        this.openComments(resultArray[0].coments, id)
-        setTimeout(() => {
-          this.loader = false;
-        }, 1000)
-      }, error => {
-        setTimeout(() => {
-          this.loader = false;
-        }, 1000)
-      })
+      this.getEventEmmiter(id);
     })
     this.getLocalsComplete();
   }
 
   getLocalsComplete(): void {
     this.localService.readLocals().subscribe((resp: any) => {
+      this.localDefault = resp;
+      this.local = resp
+      this.getCitiesOfLocals(this.local);
+      this.insertPrincipalImageCard(this.local)
+      this.imageUrl = this.storageUrl + '/' + this.local[0].principalImage
+      setTimeout(() => {
+        this.loader = false;
+      }, 1000)
+    }, error => {
+      setTimeout(() => {
+        this.loader = false;
+      }, 1000)
+    })
+  }
+
+  getCitiesOfLocals(local: any): void {
+    local.forEach((element: any) => {
+      this.cities.push(element.address_city);
+    });
+  }
+
+  getEventEmmiter(id: any): void {
+    this.localService.readLocals().subscribe((resp: any) => {
       this.local = resp
       this.insertPrincipalImageCard(this.local)
       this.imageUrl = this.storageUrl + '/' + this.local[0].principalImage
+      let resultArray = this.local.filter((locals: any) => locals.id == id);
+      this.openComments(resultArray[0].coments, id)
       setTimeout(() => {
         this.loader = false;
       }, 1000)
@@ -150,5 +166,13 @@ export class LocalComponent implements OnInit {
       },
       width: '95svw'
     })
+  }
+
+  filterLocals(local: string): void {
+    this.local = this.localDefault.filter((element: any) => element.address_city == local);
+  }
+
+  setAllLocals(): void {
+    this.local = this.localDefault;
   }
 }
