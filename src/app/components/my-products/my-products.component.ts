@@ -34,6 +34,8 @@ export class MyProductsComponent implements OnInit {
     this.productsService.readOwnProducts().subscribe((resp: any) => {
       this.products = resp;
       this.loader = false;
+    }, (error: any) => {
+      this.loader = false;
     })
   }
 

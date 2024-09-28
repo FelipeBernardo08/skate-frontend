@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { MatDialog } from '@angular/material/dialog';
 import { DialgoCommentsComponent } from '../dialgo-comments/dialgo-comments.component';
 import { EventCommentService } from 'src/app/services/event-comment.service';
+import { EventChangepageService } from 'src/app/services/event-changepage.service';
 
 @Component({
   selector: 'app-local',
@@ -17,7 +18,8 @@ export class LocalComponent implements OnInit {
     private localService: LocalService,
     private snackMessageService: SnackMessageService,
     public dialog: MatDialog,
-    private eventCommentService: EventCommentService
+    private eventCommentService: EventCommentService,
+    private eventChangePageService: EventChangepageService
   ) { }
 
   loader: boolean = true;
@@ -31,6 +33,8 @@ export class LocalComponent implements OnInit {
   imageUrl: string = '';
 
   ngOnInit(): void {
+    sessionStorage.setItem('page', 'local');
+    this.eventChangePageService.changePage();
     this.eventCommentService.eventEmitter.subscribe((id: any) => {
       this.localService.readLocals().subscribe((resp: any) => {
         this.local = resp
