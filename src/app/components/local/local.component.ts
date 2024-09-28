@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { MatDialog } from '@angular/material/dialog';
 import { DialgoCommentsComponent } from '../dialgo-comments/dialgo-comments.component';
 import { EventCommentService } from 'src/app/services/event-comment.service';
+import { EventChangepageService } from 'src/app/services/event-changepage.service';
 
 @Component({
   selector: 'app-local',
@@ -17,12 +18,15 @@ export class LocalComponent implements OnInit {
     private localService: LocalService,
     private snackMessageService: SnackMessageService,
     public dialog: MatDialog,
-    private eventCommentService: EventCommentService
+    private eventCommentService: EventCommentService,
+    private eventChangePageService: EventChangepageService
   ) { }
 
   loader: boolean = true;
 
   buttonLikeDisabled: boolean = false;
+
+  localDefault: Array<any> = [];
 
   local: Array<any> = [];
 
@@ -30,31 +34,47 @@ export class LocalComponent implements OnInit {
 
   imageUrl: string = '';
 
+  cities: Array<any> = [];
+
   ngOnInit(): void {
+    sessionStorage.setItem('page', 'local');
+    this.eventChangePageService.changePage();
     this.eventCommentService.eventEmitter.subscribe((id: any) => {
-      this.localService.readLocals().subscribe((resp: any) => {
-        this.local = resp
-        this.insertPrincipalImageCard(this.local)
-        this.imageUrl = this.storageUrl + '/' + this.local[0].principalImage
-        let resultArray = this.local.filter((locals: any) => locals.id == id);
-        this.openComments(resultArray[0].coments, id)
-        setTimeout(() => {
-          this.loader = false;
-        }, 1000)
-      }, error => {
-        setTimeout(() => {
-          this.loader = false;
-        }, 1000)
-      })
+      this.getEventEmmiter(id);
     })
     this.getLocalsComplete();
   }
 
   getLocalsComplete(): void {
     this.localService.readLocals().subscribe((resp: any) => {
+      this.localDefault = resp;
+      this.local = resp
+      this.getCitiesOfLocals(this.local);
+      this.insertPrincipalImageCard(this.local)
+      this.imageUrl = this.storageUrl + '/' + this.local[0].principalImage
+      setTimeout(() => {
+        this.loader = false;
+      }, 1000)
+    }, error => {
+      setTimeout(() => {
+        this.loader = false;
+      }, 1000)
+    })
+  }
+
+  getCitiesOfLocals(local: any): void {
+    local.forEach((element: any) => {
+      this.cities.push(element.address_city);
+    });
+  }
+
+  getEventEmmiter(id: any): void {
+    this.localService.readLocals().subscribe((resp: any) => {
       this.local = resp
       this.insertPrincipalImageCard(this.local)
       this.imageUrl = this.storageUrl + '/' + this.local[0].principalImage
+      let resultArray = this.local.filter((locals: any) => locals.id == id);
+      this.openComments(resultArray[0].coments, id)
       setTimeout(() => {
         this.loader = false;
       }, 1000)
@@ -146,5 +166,13 @@ export class LocalComponent implements OnInit {
       },
       width: '95svw'
     })
+  }
+
+  filterLocals(local: string): void {
+    this.local = this.localDefault.filter((element: any) => element.address_city == local);
+  }
+
+  setAllLocals(): void {
+    this.local = this.localDefault;
   }
 }

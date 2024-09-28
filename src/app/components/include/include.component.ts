@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { EventChangepageService } from 'src/app/services/event-changepage.service';
 import { SnackMessageService } from 'src/app/services/snack-message.service';
 
 @Component({
@@ -11,7 +12,8 @@ export class IncludeComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private snackMessageService: SnackMessageService
+    private snackMessageService: SnackMessageService,
+    private eventChangePageService: EventChangepageService
   ) { }
 
   loader: boolean = true;
@@ -24,6 +26,8 @@ export class IncludeComponent implements OnInit {
   }
 
   verifyUser(): void {
+    sessionStorage.setItem('page', 'include');
+    this.eventChangePageService.changePage();
     let token = sessionStorage.getItem('token')
     if (token == undefined || token == 'udnefined' || token == null || token == '') {
       this.snackMessageService.snackMessage('Efetue o login primeiro!');

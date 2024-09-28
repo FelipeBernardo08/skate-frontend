@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { EstateAndCityApiService } from 'src/app/services/estate-and-city-api.service';
+import { EventChangepageService } from 'src/app/services/event-changepage.service';
 import { EventsService } from 'src/app/services/events.service';
 import { LoginService } from 'src/app/services/login.service';
 import { SkaterService } from 'src/app/services/skater.service';
@@ -18,7 +20,9 @@ export class ProfileComponent implements OnInit {
     private skaterService: SkaterService,
     private loginService: LoginService,
     private snackMessageService: SnackMessageService,
-    private eventService: EventsService
+    private eventService: EventsService,
+    private eventChangePageService: EventChangepageService,
+    private estateAndCityApiService: EstateAndCityApiService
   ) { }
 
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -41,7 +45,6 @@ export class ProfileComponent implements OnInit {
   user: any = {
     name: '',
     fone: '',
-    cpf: '',
     address_city: '',
     address_estate: '',
     urlImage: ''
@@ -54,7 +57,13 @@ export class ProfileComponent implements OnInit {
 
   respUser: Array<any> = [];
 
+  estates: Array<any> = [];
+
+  cities: Array<any> = [];
+
   ngOnInit(): void {
+    sessionStorage.setItem('page', 'profile');
+    this.eventChangePageService.changePage();
     this.getUserSession();
   }
 
@@ -64,6 +73,7 @@ export class ProfileComponent implements OnInit {
       this.router.navigate(['/login']);
     } else {
       this.getUser();
+      this.getEstates();
     }
   }
 
@@ -73,11 +83,11 @@ export class ProfileComponent implements OnInit {
       this.respUser = resp;
       this.user.name = resp[0].skater[0].name;
       this.user.fone = resp[0].skater[0].fone;
-      this.user.cpf = resp[0].skater[0].cpf
       this.user.address_city = resp[0].skater[0].address_city;
       this.user.address_estate = resp[0].skater[0].address_estate;
       this.user.urlImage = `${this.urlStore}/${resp[0].skater[0].image_profile[0]?.file_name}`;
       sessionStorage.setItem('id_skater', resp[0].skater[0].id);
+      this.changeCities(this.user.address_estate);
       if (resp[0].skater[0].image_profile[0]?.file_name != null || resp[0].skater[0].image_profile[0]?.file_name != undefined) {
         sessionStorage.setItem('urlImageProfile', this.user.urlImage);
         this.eventService.changeImage();
@@ -117,7 +127,6 @@ export class ProfileComponent implements OnInit {
       console.error('Nenhum arquivo selecionado.');
     }
   }
-
 
   editProfile(): void {
     this.conditionEditProfile = !this.conditionEditProfile;
@@ -164,7 +173,7 @@ export class ProfileComponent implements OnInit {
 
   sendUpdateUser(): void {
     this.loader = true;
-    if (this.user.name != '' && this.user.fone != '' && this.user.cpf != '' && this.user.address_city != '' && this.user.address_estate) {
+    if (this.user.name != '' && this.user.fone != '' && this.user.address_city != '' && this.user.address_estate) {
       this.skaterService.updateUser(this.user).subscribe((resp: any) => {
         this.getUser();
       })
@@ -203,5 +212,17 @@ export class ProfileComponent implements OnInit {
 
   openMySpots(): void {
     this.router.navigate(['/read-my-spots']);
+  }
+
+  getEstates(): void {
+    this.estateAndCityApiService.getEstate().subscribe((resp: any) => {
+      this.estates = resp;
+    })
+  }
+
+  changeCities(estate: string): void {
+    this.estateAndCityApiService.getCitiesByEstate(estate).subscribe((resp: any) => {
+      this.cities = resp;
+    })
   }
 }

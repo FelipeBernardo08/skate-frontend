@@ -1,7 +1,8 @@
-<nav class="p-3 m-0 fixed-bottom bg-white mat-elevation-z8">
+<nav class="fixed-bottom bg-white mat-elevation-z8">
     <div class="d-flex justify-content-around">
-        <div *ngFor="let item of contentSideBar">
-            <i [routerLink]="item.link" class="material-icons cursor-pointer">{{item.name}}</i>
+        <div *ngFor="let item of contentSideBar" (click)="goToPage(item.link)"
+            [class]="page == item.title ? 'p-3 m-0 active cursor-pointer' : 'p-3 m-0 cursor-pointer'">
+            <i class="material-icons ">{{item.name}}</i>
         </div>
     </div>
 </nav>
