@@ -3,6 +3,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { element } from 'protractor';
 import { Local } from 'src/app/interfaces/local';
+import { EstateAndCityApiService } from 'src/app/services/estate-and-city-api.service';
 import { LocalService } from 'src/app/services/local.service';
 import { SnackMessageService } from 'src/app/services/snack-message.service';
 
@@ -23,7 +24,8 @@ export class CreateLocalComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private router: Router,
     private localService: LocalService,
-    private snackMessageService: SnackMessageService
+    private snackMessageService: SnackMessageService,
+    private estateAndCityApiService: EstateAndCityApiService
   ) { }
 
   loader: boolean = true;
@@ -31,6 +33,10 @@ export class CreateLocalComponent implements OnInit {
   images: Array<any> = [];
 
   payloadSendImages: Array<FormData> = [];
+
+  estates: Array<any> = [];
+
+  cities: Array<any> = [];
 
   place: Local = {
     title: '',
@@ -45,6 +51,7 @@ export class CreateLocalComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.getEstates();
     setTimeout(() => {
       this.loader = !this.loader
     }, 1000)
@@ -99,5 +106,17 @@ export class CreateLocalComponent implements OnInit {
 
   cancelCreateLocal(): void {
     this.router.navigate(['/include'])
+  }
+
+  getEstates(): void {
+    this.estateAndCityApiService.getEstate().subscribe((resp: any) => {
+      this.estates = resp;
+    })
+  }
+
+  changeCities(estate: string): void {
+    this.estateAndCityApiService.getCitiesByEstate(estate).subscribe((resp: any) => {
+      this.cities = resp;
+    })
   }
 }

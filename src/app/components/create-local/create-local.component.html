@@ -33,7 +33,7 @@
                             <mat-error>O campo rua é obrigatório</mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <mat-form-field appearance="fill" class="w-100 mt-2">
                             <mat-label>Número</mat-label>
                             <input matInput placeholder="Digite o número" [(ngModel)]="place.address_number"
@@ -41,7 +41,7 @@
                             <mat-error>O campo número é obrigatório</mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="col-8">
+                    <div class="col-9">
                         <mat-form-field appearance="fill" class="w-100 mt-2">
                             <mat-label>Bairro</mat-label>
                             <input matInput placeholder="Digite o bairro" [(ngModel)]="place.address_neighborhood"
@@ -49,20 +49,24 @@
                             <mat-error>O campo bairro é obrigatório</mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="col-md-10">
-                        <mat-form-field appearance="fill" class="w-100 mt-2">
-                            <mat-label>Cidade</mat-label>
-                            <input matInput placeholder="Digite a cidade" [(ngModel)]="place.address_city"
-                                name="address_city" required>
-                            <mat-error>O campo cidade é obrigatório</mat-error>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="fill" class="w-100 mt-3">
+                            <mat-label>Estado</mat-label>
+                            <mat-select [(ngModel)]="place.address_estate" name="address_estate" required>
+                                <mat-option *ngFor="let item of estates" [value]="item.sigla"
+                                    (click)="changeCities(item.sigla)">{{item.sigla}}</mat-option>
+                            </mat-select>
+                            <mat-error>O campo estado é obrigatório</mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="col-md-2">
-                        <mat-form-field appearance="fill" class="w-100 mt-2">
-                            <mat-label>UF</mat-label>
-                            <input matInput placeholder="Digite a UF" [(ngModel)]="place.address_estate"
-                                name="address_estate" required>
-                            <mat-error>O campo estado é obrigatório</mat-error>
+                    <div class="col-md-8">
+                        <mat-form-field appearance="fill" class="w-100 mt-3">
+                            <mat-label>Cidade</mat-label>
+                            <mat-select [(ngModel)]="place.address_city" name="address_city"
+                                [disabled]="cities.length == 0" required>
+                                <mat-option *ngFor="let item of cities" [value]="item.nome">{{item.nome}}</mat-option>
+                            </mat-select>
+                            <mat-error>O campo cidade é obrigatório</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="col-12">
