@@ -217,12 +217,23 @@ export class ProfileComponent implements OnInit {
   getEstates(): void {
     this.estateAndCityApiService.getEstate().subscribe((resp: any) => {
       this.estates = resp;
+      this.estates.sort((a, b) => {
+        if (a.nome < b.nome) return -1;
+        if (a.nome > b.nome) return 1;
+        return 0;
+      });
     })
   }
+
 
   changeCities(estate: string): void {
     this.estateAndCityApiService.getCitiesByEstate(estate).subscribe((resp: any) => {
       this.cities = resp;
+      this.cities.sort((a, b) => {
+        if (a.nome < b.nome) return -1;
+        if (a.nome > b.nome) return 1;
+        return 0;
+      });
     })
   }
 }
