@@ -30,6 +30,7 @@ import { UpdateSpotsComponent } from './components/update-spots/update-spots.com
 import { UpdateProductsComponent } from './components/update-products/update-products.component';
 import { MyLocalsComponent } from './components/my-locals/my-locals.component';
 import { MyProductsComponent } from './components/my-products/my-products.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { MyProductsComponent } from './components/my-products/my-products.compon
     UpdateSpotsComponent,
     UpdateProductsComponent,
     MyLocalsComponent,
-    MyProductsComponent
+    MyProductsComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
