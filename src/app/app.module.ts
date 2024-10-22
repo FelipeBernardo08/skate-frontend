@@ -31,6 +31,7 @@ import { UpdateProductsComponent } from './components/update-products/update-pro
 import { MyLocalsComponent } from './components/my-locals/my-locals.component';
 import { MyProductsComponent } from './components/my-products/my-products.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { InfoComponent } from './components/info/info.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     UpdateProductsComponent,
     MyLocalsComponent,
     MyProductsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,
