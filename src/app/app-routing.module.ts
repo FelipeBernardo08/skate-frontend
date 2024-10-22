@@ -13,6 +13,7 @@ import { UpdateProductsComponent } from './components/update-products/update-pro
 import { MyLocalsComponent } from './components/my-locals/my-locals.component';
 import { MyProductsComponent } from './components/my-products/my-products.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { InfoComponent } from './components/info/info.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,10 @@ const routes: Routes = [
   {
     path: 'update-products/:id',
     component: UpdateProductsComponent
+  },
+  {
+    path: 'info',
+    component: InfoComponent
   },
   {
     path: '**',

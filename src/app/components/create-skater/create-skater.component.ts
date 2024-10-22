@@ -20,9 +20,11 @@ export class CreateSkaterComponent implements OnInit {
   registry: Regystry = {
     email: '',
     password: '',
-    name: ''
+    name: '',
+    passwordConfirm: ''
   };
-  hide: boolean = true;
+  hide1: boolean = true;
+  hide2: boolean = true;
   loader: boolean = false;
 
   ngOnInit(): void {
@@ -32,24 +34,30 @@ export class CreateSkaterComponent implements OnInit {
     }
   }
 
-  showPassword(): void {
-    this.hide = !this.hide;
+  showPassword1(): void {
+    this.hide1 = !this.hide1;
+  }
+
+  showPassword2(): void {
+    this.hide2 = !this.hide2;
   }
 
   sendRegistry(): void {
-    this.loader = true;
     if (this.registry.name != '' && this.registry.email != '' && this.registry.password != '') {
-      this.loginService.registry(this.registry).subscribe((resp: any) => {
-        this.snackMessageService.snackMessage('Registro criado com sucesso!');
-        this.router.navigate(['/login']);
-      }, error => {
-        this.snackMessageService.snackMessage('Erro de conexão, tente novamente mais tarde!');
-        if (error.status == 0) {
-          this.snackMessageService.snackMessage('Erro de conexão, tente novamente mais tarde!');
-        } else if (error.status == 404) {
-          this.snackMessageService.snackMessage('E-mail já cadastrado, recupere a senha ou use outro e-mail.');
-        }
-      })
+      if (this.registry.password === this.registry.passwordConfirm) {
+        this.loader = true;
+        this.loginService.registry(this.registry).subscribe((resp: any) => {
+          this.snackMessageService.snackMessage('Registro criado com sucesso! Um e-mail foi enviado para confirmação de conta');
+          this.router.navigate(['/login']);
+        }, (error: any) => {
+          this.snackMessageService.snackMessage(error.error.Error);
+          this.loader = false;
+        })
+      } else {
+        this.snackMessageService.snackMessage('As senhas precisam ser idênticas!');
+      }
+    } else {
+      this.snackMessageService.snackMessage('Preencha todos os campos!');
     }
   }
 
