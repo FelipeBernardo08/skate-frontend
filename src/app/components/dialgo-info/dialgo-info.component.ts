@@ -16,7 +16,4 @@ export class DialgoInfoComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  sendToPortifolio(): void {
-    window.open('https://bernardodev.netlify.app/', '_blank');
-  }
 }

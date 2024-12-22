@@ -25,10 +25,19 @@
             </mat-form-field>
             <mat-form-field appearance="fill" class="w-100">
                 <mat-label>Senha</mat-label>
-                <input matInput placeholder="Digite sua senha" [type]="hide ? 'password' : 'text'"
+                <input matInput placeholder="Digite sua senha" [type]="hide1 ? 'password' : 'text'"
                     [(ngModel)]="registry.password" name="password" required>
-                <i mat-icon-button matSuffix (click)="showPassword()" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide" class="material-icons icone-hide">{{hide? 'visibility_off' :
+                <i mat-icon-button matSuffix (click)="showPassword1()" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide1" class="material-icons icone-hide">{{hide1? 'visibility_off' :
+                    'visibility'}}</i>
+                <mat-error>O campo senha é obrigatório</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Confirmar Senha</mat-label>
+                <input matInput placeholder="Confirme sua senha" [type]="hide2 ? 'password' : 'text'"
+                    [(ngModel)]="registry.passwordConfirm" name="passwordConfirm" required>
+                <i mat-icon-button matSuffix (click)="showPassword2()" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide2" class="material-icons icone-hide">{{hide2? 'visibility_off' :
                     'visibility'}}</i>
                 <mat-error>O campo senha é obrigatório</mat-error>
             </mat-form-field>
@@ -38,7 +47,7 @@
         </div>
     </form>
     <div class="mt-4 text-center">
-        <p>Já não possui conta? Clique <span class="login text-primary" (click)="login()">aqui</span> para fazer
+        <p>Já possui conta? Clique <span class="login text-primary" (click)="login()">aqui</span> para fazer
             login!</p>
     </div>
 </mat-card>
